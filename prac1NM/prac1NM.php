@@ -73,88 +73,93 @@
 
     $temps = [
         "Ciudad 1" => [
-            "Dia 1 " => mt_rand(-10, 45),
-            "Dia 2 " => mt_rand(-10, 45),
-            "Dia 3 " => mt_rand(-10, 45),
-            "Dia 4 " => mt_rand(-10, 45),
-            "Dia 5 " => mt_rand(-10, 45),
-            "Dia 6 " => mt_rand(-10, 45)
+            mt_rand(-10, 45),
+            mt_rand(-10, 45),
+            mt_rand(-10, 45),
+            mt_rand(-10, 45),
+            mt_rand(-10, 45),
+            mt_rand(-10, 45)
         ],
         "Ciudad 2" => [
-            "Dia 1 " => mt_rand(-10, 45),
-            "Dia 2 " => mt_rand(-10, 45),
-            "Dia 3 " => mt_rand(-10, 45),
-            "Dia 4 " => mt_rand(-10, 45),
-            "Dia 5 " => mt_rand(-10, 45),
-            "Dia 6 " => mt_rand(-10, 45)
+            mt_rand(-10, 45),
+            mt_rand(-10, 45),
+            mt_rand(-10, 45),
+            mt_rand(-10, 45),
+            mt_rand(-10, 45),
+            mt_rand(-10, 45)
         ],
         "Ciudad 3" => [
-            "Dia 1 " => mt_rand(-10, 45),
-            "Dia 2 " => mt_rand(-10, 45),
-            "Dia 3 " => mt_rand(-10, 45),
-            "Dia 4 " => mt_rand(-10, 45),
-            "Dia 5 " => mt_rand(-10, 45),
-            "Dia 6 " => mt_rand(-10, 45)
+            mt_rand(-10, 45),
+            mt_rand(-10, 45),
+            mt_rand(-10, 45),
+            mt_rand(-10, 45),
+            mt_rand(-10, 45),
+            mt_rand(-10, 45)
         ],
         "Ciudad 4" => [
-            "Dia 1 " => mt_rand(-10, 45),
-            "Dia 2 " => mt_rand(-10, 45),
-            "Dia 3 " => mt_rand(-10, 45),
-            "Dia 4 " => mt_rand(-10, 45),
-            "Dia 5 " => mt_rand(-10, 45),
-            "Dia 6 " => mt_rand(-10, 45)
+            mt_rand(-10, 45),
+            mt_rand(-10, 45),
+            mt_rand(-10, 45),
+            mt_rand(-10, 45),
+            mt_rand(-10, 45),
+            mt_rand(-10, 45)
         ],
         "Ciudad 5" => [
-            "Dia 1 " => mt_rand(-10, 45),
-            "Dia 2 " => mt_rand(-10, 45),
-            "Dia 3 " => mt_rand(-10, 45),
-            "Dia 4 " => mt_rand(-10, 45),
-            "Dia 5 " => mt_rand(-10, 45),
-            "Dia 6 " => mt_rand(-10, 45)
+            mt_rand(-10, 45),
+            mt_rand(-10, 45),
+            mt_rand(-10, 45),
+            mt_rand(-10, 45),
+            mt_rand(-10, 45),
+            mt_rand(-10, 45)
         ],
         "Ciudad 6" => [
-            "Dia 1 " => mt_rand(-10, 45),
-            "Dia 2 " => mt_rand(-10, 45),
-            "Dia 3 " => mt_rand(-10, 45),
-            "Dia 4 " => mt_rand(-10, 45),
-            "Dia 5 " => mt_rand(-10, 45),
-            "Dia 6 " => mt_rand(-10, 45)
+            mt_rand(-10, 45),
+            mt_rand(-10, 45),
+            mt_rand(-10, 45),
+            mt_rand(-10, 45),
+            mt_rand(-10, 45),
+            mt_rand(-10, 45)
         ],
     ];
     //Temperatura mas alta y baja
     
     $max = 0;
+    $min = 0;
     foreach ($temps as $ciudad => $info) {
-        foreach ($info as $dia => $temperatura) {
+        foreach ($info as $temperatura) {
             if ($temperatura > $max) {
                 $max = $temperatura;
             }
-        }
-    }
-    echo $max;
-    echo "<br>";
-
-    $min = 0;
-    foreach ($temps as $ciudad => $info) {
-        foreach ($info as $dia => $temperatura) {
             if ($temperatura < $min) {
                 $min = $temperatura;
             }
         }
     }
+    echo $max;
+    echo "<br>";
     echo $min;
     echo "<br>";
-
+    
     //Dia con mayor variacion termica
     $diaMax = 0;
     foreach ($temps as $ciudad => $info) {
-        var_dump($info[0]);
         for( $i = 0; $i < count($info); $dia++) {
-            if($info[0] > $diaMax){
-                $diaMax = $info;
+            if($info[$i] > $diaMax){
+                $diaMax = $info[$i];
             }
         }
     }
+    echo $diaMax;
+
+    //Media por ciudad
+    $sum = 0;
+    foreach ($temps as $ciudad => $info) {
+        foreach ($info as $temperatura) {
+            $sum += $temperatura;
+            $info["media"] = $sum / count($info);
+        }
+    }
+    var_dump($temps);
     ?>
 </body>
 
