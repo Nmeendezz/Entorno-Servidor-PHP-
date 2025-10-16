@@ -1,0 +1,16 @@
+table, th, tr, td{
+    border-collapse: collapse;
+    border: 1px solid;
+    text-align: center;
+    width: 10px;
+}
+th, tr, td{
+    padding: 10px;
+}
+table{
+    width: 50%;
+}
+.temperaturas{
+    width: 500px;
+    text-align: left;
+}

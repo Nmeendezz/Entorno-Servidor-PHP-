@@ -1,0 +1,24 @@
+th, td{
+    border: none;
+    text-align: center;
+    font-size: x-large;
+    padding: 15px;
+    margin: 0px;
+}
+table{
+    border: none;
+    border-spacing: 3px;
+    padding: 10px;
+    background-color: #f0eee2;
+}
+#firstLine{
+    background-color: #056519;
+}
+
+#firstCell{
+    background-color: #55bebd;
+}
+
+#firstRow{
+    background-color: #86ba91;
+}
