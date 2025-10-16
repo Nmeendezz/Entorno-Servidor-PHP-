@@ -113,7 +113,7 @@ include("alumnado.php");
     //b
     echo "<ol>";
     foreach ($alumnos as $dni => $info) {
-        if ($info["matricula"] == true) {
+        if ($info["matricula"]) {
             echo "<li>" . $info["name"] . " si tiene matricula</li>";
         } else {
             echo "<li>" . $info["name"] . " no tiene matricula</li>";
