@@ -1,4 +1,4 @@
-div {
+#caja1 {
     text-align: center;
     align-items: center;
     width: 80%;
@@ -17,7 +17,7 @@ h1 {
 table {
     width: 100%;
     border-radius: 10px;
-    border: solid 1px;
+    border: solid 2px;
     padding: 3px;
     border-spacing: 5px;
 }
@@ -25,9 +25,11 @@ table {
 td,
 th {
     border: solid 1px #e5e8ed;
-    padding: 20px;
-    width: 30px;
-    border-radius: 5px;
+    height: 50px;
+    border-radius: 3px;
+    padding-left: 30px;
+    padding-right: 30px;
+    white-space: nowrap;
 }
 
 .blue {
@@ -62,10 +64,40 @@ th {
     color: #0a88f6;
 }
 
-.yellow{
+.yellow {
     background-color: #ffefd0;
 }
 
 .dias {
     background-color: #e1e1e1;
+}
+
+#caja2 {
+    margin: 10px;
+    background-color: #f5f5fa;
+    border: solid 1px #eceef1;
+    width: 550px;
+    padding: 15px;
+    padding-top: 0;
+    border-radius: 5px;
+    text-align: left;
+}
+
+span{
+    font-weight: bold;
+}
+hr {
+    border-width: 2px;
+    color: #8b929b;
+}
+
+.punteado{
+    margin-top: -5px;
+    margin-bottom: -5px;
+    border: dotted 1.5px;
+    border-color: #e7e9ee;
+}
+h3 {
+    
+    color: #465064;
 }

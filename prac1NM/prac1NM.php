@@ -126,13 +126,21 @@
     
     $max = 0;
     $min = 0;
+    $cityTempMax;
+    $cityTempMin;
+    $dayTempMax;
+    $dayTempMin;
     foreach ($temps as $ciudad => $info) {
         for ($i = 0; $i < count($info); $i++) {
             if ($info[$i] > $max) {
                 $max = $info[$i];
+                $cityTempMax = $ciudad;
+                $dayTempMax = $i + 1;
             }
             if ($info[$i] < $min) {
                 $min = $info[$i];
+                $cityTempMin = $ciudad;
+                $dayTempMin = $i + 1;
             }
         }
     }
@@ -142,29 +150,53 @@
     echo "<br>";
 
     //Dia con mayor variacion termica
-    $diaMax = 0;
-    foreach ($temps as $ciudad => $info) {
-        for ($i = 0; $i < count($info); $i++) {
+    $variationMax = 0;
+    $variationDay;
+    for ($i = 0; $i < count($info); $i++) {
+        $diaMax = 0;
+        $diaMin = 0;
+        foreach ($temps as $ciudad => $info) {
+
             if ($info[$i] > $diaMax) {
                 $diaMax = $info[$i];
             }
+            if ($info[$i] < $diaMin) {
+                $diaMin = $info[$i];
+            }
+        }
+
+        if ($diaMax - $diaMin > $variationMax) {
+            $variationMax = $diaMax - $diaMin;
+            $variationDay = $i + 1;
         }
     }
-    echo $diaMax;
+
+    echo "La variacion es $variationMax";
+    echo "<br>";
+    echo "El dia es $variationDay";
     echo "<br><br>";
 
     //Media por ciudad
-    $sum = 0;
-    $cont = 0;
+    $avgMax = 0;
+    $averages = [];
+    $avg;
     foreach ($temps as $ciudad => $info) {
-        foreach ($info as $temperatura) {
-            $sum += $temperatura;
-            $cont++;
+        $sum = 0;
+        for ($i = 0; $i < count($info); $i++) {
+            $sum += $info[$i];
+            $avg = round($sum / count($info), 2);
+            $averages[$ciudad] = $avg;
         }
+
+        if ($avg > $avgMax) {
+            $avgMax = $avg;
+            $cityAvgMax = $ciudad;
+        }
+
     }
 
     ?>
-    <div>
+    <div id="caja1">
         <h1>Temperaturas de ciudades por dia (Cº)</h1>
         <table>
             <tr>
@@ -181,15 +213,27 @@
 
 
             $cityAvgMax;
-            $cityAvgMin;
             foreach ($temps as $ciudad => $info) {
-                $sum = 0;
-                $avgMax = 0;
-
                 echo "<tr>";
                 echo '<th class="blue">' . $ciudad . '</th>';
                 for ($i = 0; $i < count($info); $i++) {
-                    if ($i == 5) {
+                    if ($ciudad === $cityAvgMax) {
+                        if ($info[$i] < 0) {
+                            if ($info[$i] === $min) {
+                                echo '<td class="yellow min">' . $info[$i] . '</td>';
+                            } else {
+                                echo '<td class="yellow skyblue">' . $info[$i] . '</td>';
+                            }
+                        } else if ($info[$i] > 35) {
+                            if ($info[$i] === $max) {
+                                echo '<td class="yellow max" >' . $info[$i] . '</td>';
+                            } else {
+                                echo '<td class="yellow red" >' . $info[$i] . '</td>';
+                            }
+                        } else {
+                            echo '<td class="yellow" >' . $info[$i] . '</td>';
+                        }
+                    } else if ($i == 5) {
                         if ($info[$i] < 0) {
                             if ($info[$i] === $min) {
                                 echo '<td class="green min">' . $info[$i] . '</td>';
@@ -217,26 +261,26 @@
                         } else {
                             echo '<td class="red" >' . $info[$i] . '</td>';
                         }
-
                     } else {
                         echo "<td>" . $info[$i] . "</td>";
                     }
-                }
-                for ($i = 0; $i < count($info); $i++) {
-                    $sum += $info[$i];
-                }
-                $avg = $sum / count($info);
-                echo '<td id="media">' . $avg . '</td>';
 
-                if ($avg > $avgMax) {
-                    $avgMax = $avg;
-                    $cityAvgMax = $ciudad;
                 }
+                echo '<td class="media">' . $averages[$ciudad] . '</td>';
                 echo "</tr>";
             }
 
             ?>
         </table>
+        <div id="caja2">
+            <h3>Estadisticas</h3>
+            <hr>
+            <p><span>Temperatura minima: </span><?php echo "$min Cº  (Dia $dayTempMin, $cityTempMin)" ?></p>
+            <hr class="punteado">
+            <p><span>Temperatura maxima: </span><?php echo "$max Cº  (Dia $dayTempMax, $cityTempMax)" ?></p>
+            <hr class="punteado">
+            <p><span>Dia con mayor variacion: </span><?php echo "Dia $variationDay  ($variationMax Cº de diferencia)" ?></p>
+        </div>
     </div>
 
 
