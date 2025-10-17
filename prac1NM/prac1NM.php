@@ -5,50 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <style>
-        div {
-            text-align: center;
-            align-items: center;
-            width: 80%;
-            margin: 0 auto;
-            justify-items: center;
-        }
-
-        h1 {
-            background-color: #465055;
-            color: white;
-            padding-top: 10px;
-            padding-bottom: 10px;
-            width: 100%;
-        }
-
-        table,
-        td,
-        th {
-            border: solid 1px;
-            border-collapse: collapse;
-            width: 100%;
-
-        }
-
-        table {
-            border-radius: 20px;
-        }
-
-        td,
-        th {
-            padding: 20px;
-            width: 30px;
-        }
-
-        .blue {
-            background-color: #cdebf0;
-        }
-
-        .green {
-            background-color: #d2ebd7;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
@@ -170,12 +127,12 @@
     $max = 0;
     $min = 0;
     foreach ($temps as $ciudad => $info) {
-        foreach ($info as $temperatura) {
-            if ($temperatura > $max) {
-                $max = $temperatura;
+        for ($i = 0; $i < count($info); $i++) {
+            if ($info[$i] > $max) {
+                $max = $info[$i];
             }
-            if ($temperatura < $min) {
-                $min = $temperatura;
+            if ($info[$i] < $min) {
+                $min = $info[$i];
             }
         }
     }
@@ -204,11 +161,6 @@
             $sum += $temperatura;
             $cont++;
         }
-        $temps[$ciudad]['media'] = $sum / $cont;
-    }
-    foreach ($temps as $ciudad => $info) {
-        echo $temps[$ciudad]['media'];
-        echo "<br>";
     }
 
     ?>
@@ -216,22 +168,69 @@
         <h1>Temperaturas de ciudades por dia (Cº)</h1>
         <table>
             <tr>
-                <th>Ciudad/Dia</th>
-                <th>Dia 1</th>
-                <th>Dia 2</th>
-                <th>Dia 3</th>
-                <th>Dia 4</th>
-                <th>Dia 5</th>
-                <th class="green">Dia 6</th>
-                <th>Media</th>
+                <th class="dias">Ciudad/Dia</th>
+                <th class="dias">Dia 1</th>
+                <th class="dias">Dia 2</th>
+                <th class="dias">Dia 3</th>
+                <th class="dias">Dia 4</th>
+                <th class="dias">Dia 5</th>
+                <th class="dias">Dia 6</th>
+                <th class="dias">Media</th>
             </tr>
             <?php
+
+
+            $cityAvgMax;
+            $cityAvgMin;
             foreach ($temps as $ciudad => $info) {
+                $sum = 0;
+                $avgMax = 0;
+
                 echo "<tr>";
                 echo '<th class="blue">' . $ciudad . '</th>';
-                foreach( $info as $temperatura ) {
-                    
-                    echo "<td> $temperatura </td>";
+                for ($i = 0; $i < count($info); $i++) {
+                    if ($i == 5) {
+                        if ($info[$i] < 0) {
+                            if ($info[$i] === $min) {
+                                echo '<td class="green min">' . $info[$i] . '</td>';
+                            } else {
+                                echo '<td class="green skyblue">' . $info[$i] . '</td>';
+                            }
+                        } else if ($info[$i] > 35) {
+                            if ($info[$i] === $max) {
+                                echo '<td class="green max" >' . $info[$i] . '</td>';
+                            } else {
+                                echo '<td class="green red" >' . $info[$i] . '</td>';
+                            }
+                        } else {
+                            echo '<td class="green">' . $info[$i] . '</td>';
+                        }
+                    } else if ($info[$i] < 0) {
+                        if ($info[$i] === $min) {
+                            echo '<td class="min">' . $info[$i] . '</td>';
+                        } else {
+                            echo '<td class="skyblue">' . $info[$i] . '</td>';
+                        }
+                    } else if ($info[$i] > 35) {
+                        if ($info[$i] === $max) {
+                            echo '<td class="max" >' . $info[$i] . '</td>';
+                        } else {
+                            echo '<td class="red" >' . $info[$i] . '</td>';
+                        }
+
+                    } else {
+                        echo "<td>" . $info[$i] . "</td>";
+                    }
+                }
+                for ($i = 0; $i < count($info); $i++) {
+                    $sum += $info[$i];
+                }
+                $avg = $sum / count($info);
+                echo '<td id="media">' . $avg . '</td>';
+
+                if ($avg > $avgMax) {
+                    $avgMax = $avg;
+                    $cityAvgMax = $ciudad;
                 }
                 echo "</tr>";
             }
