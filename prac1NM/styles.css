@@ -30,6 +30,7 @@ th {
     padding-left: 30px;
     padding-right: 30px;
     white-space: nowrap;
+    text-align: center;
 }
 
 .blue {
@@ -83,21 +84,34 @@ th {
     text-align: left;
 }
 
-span{
+span {
     font-weight: bold;
 }
+
 hr {
     border-width: 2px;
     color: #8b929b;
 }
 
-.punteado{
+.punteado {
     margin-top: -5px;
     margin-bottom: -5px;
     border: dotted 1.5px;
     border-color: #e7e9ee;
 }
-h3 {
-    
+
+#estadisticas {
     color: #465064;
+}
+
+.backRed{
+    background-color: rgb(255, 171, 171);
+}
+
+.tachado{
+    text-decoration: line-through;
+}
+.tableShop{
+    width: 75%;
+    margin: 0 auto;
 }

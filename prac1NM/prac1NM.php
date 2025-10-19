@@ -1,3 +1,7 @@
+<?php
+include("functions/functionsNM.php");
+include("functions/shopNM.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -144,15 +148,12 @@
             }
         }
     }
-    echo $max;
-    echo "<br>";
-    echo $min;
-    echo "<br>";
 
     //Dia con mayor variacion termica
     $variationMax = 0;
     $variationDay;
-    for ($i = 0; $i < count($info); $i++) {
+    $numDias = count($temps['Ciudad 1']);
+    for ($i = 0; $i < $numDias; $i++) {
         $diaMax = 0;
         $diaMin = 0;
         foreach ($temps as $ciudad => $info) {
@@ -170,11 +171,6 @@
             $variationDay = $i + 1;
         }
     }
-
-    echo "La variacion es $variationMax";
-    echo "<br>";
-    echo "El dia es $variationDay";
-    echo "<br><br>";
 
     //Media por ciudad
     $avgMax = 0;
@@ -273,17 +269,110 @@
             ?>
         </table>
         <div id="caja2">
-            <h3>Estadisticas</h3>
+            <h3 id="estadisticas">Estadisticas</h3>
             <hr>
             <p><span>Temperatura minima: </span><?php echo "$min Cº  (Dia $dayTempMin, $cityTempMin)" ?></p>
             <hr class="punteado">
             <p><span>Temperatura maxima: </span><?php echo "$max Cº  (Dia $dayTempMax, $cityTempMax)" ?></p>
             <hr class="punteado">
-            <p><span>Dia con mayor variacion: </span><?php echo "Dia $variationDay  ($variationMax Cº de diferencia)" ?></p>
+            <p><span>Dia con mayor variacion: </span><?php echo "Dia $variationDay  ($variationMax Cº de diferencia)" ?>
+            </p>
         </div>
     </div>
+    <h3>Ejercicio 4</h3>
+    <table class="tableShop">
+        <tr>
+            <th>Nombre</th>
+            <th>Precio (con IVA)</th>
+            <th>Stock</th>
+        </tr>
+        <?php
+        $products = $productos;
+        foreach ($products as $numProduct => $info) {
+            echo "<tr>";
+            $name = ucfirst($info["nombre"]);
+            echo "<td>$name</td>";
 
+            $priceIva = round(calculateIVA($info['precio']), 2);
+            $priceFormated = formatPrice($priceIva);
+            echo "<td>$priceFormated</td>";
 
+            if ($info['stock'] > 10) {
+                echo '<td class="green">' . $info['stock'] . '</td>';
+            } else if ($info['stock'] > 0) {
+                echo '<td class="yellow">' . $info['stock'] . '</td>';
+            } else if ($info['stock'] == 0) {
+                echo '<td class="backRed">' . $info['stock'] . '</td>';
+            } else {
+                echo '<td>' . $info['stock'] . '</td>';
+            }
+
+            echo "</tr>";
+        }
+        ?>
+
+    </table>
+
+    <h3>Ejercicio 4.1</h3>
+
+    <?php
+    $discountProducts = $productos;
+    $numProduct1;
+    $numProduct2;
+    $numProduct3;
+    foreach ($discountProducts as $numProduct => $info) {
+        if($info['precio'] > 500){
+            $numProduct1 = $numProduct;
+        } else if($info['precio'] > 100) {
+            $numProduct2 = $numProduct;
+        } else {
+            $numProduct3 = $numProduct;
+        }
+    }
+
+    $discountProducts[$numProduct1]['descuento'] = 40;
+    $discountProducts[$numProduct2]['descuento'] = 30;
+    $discountProducts[$numProduct3]['descuento'] = 15;
+    ?>
+
+    <table class="tableShop">
+        <tr>
+            <th>Nombre</th>
+            <th>Precio Sin Descuento (con IVA)</th>
+            <th>Precio Con Descuento (con IVA)</th>
+            <th>Stock</th>
+        </tr>
+        
+        <?php
+        foreach ($discountProducts as $numProduct => $info) {
+            echo "<tr>";
+            $name = ucfirst($info["nombre"]);
+            echo "<td>$name</td>";
+
+            $priceIva = round(calculateIVA($info['precio']), 2);
+            $priceFormated = formatPrice($priceIva);
+            echo '<td class="tachado">' . $priceFormated . '</td>';
+            
+            $discount = (100 - $info["descuento"]) / 100;
+            $priceDiscount = round($info["precio"] * $discount,2);
+            $priceIvaDiscount = round(calculateIVA($priceDiscount), 2);
+            $priceFormatedDiscount = formatPrice($priceIvaDiscount);
+            echo '<td>' . $priceFormatedDiscount . " (-" . $info["descuento"] . "%)" .'</td>';
+
+            if ($info['stock'] > 10) {
+                echo '<td class="green">' . $info['stock'] . '</td>';
+            } else if ($info['stock'] > 0) {
+                echo '<td class="yellow">' . $info['stock'] . '</td>';
+            } else if ($info['stock'] == 0) {
+                echo '<td class="backRed">' . $info['stock'] . '</td>';
+            } else {
+                echo '<td>' . $info['stock'] . '</td>';
+            }
+
+            echo "</tr>";
+        }
+        ?>
+    </table>
 </body>
 
 </html>
