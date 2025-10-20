@@ -387,7 +387,7 @@ include("functions/exeFunctNM.php");
     ];
 
     ?>
-    <table>
+    <table id="ownTablegit">
         <tr>
             <th class="cabeceras">Estudiante</th>
             <th class="cabeceras">Notas</th>
