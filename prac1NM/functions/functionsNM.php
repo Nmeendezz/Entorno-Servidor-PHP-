@@ -96,15 +96,16 @@ function analizarPalabras($text)
     $palabras = preg_split("/\s+/", $text);
 
     $number_of_words = count($palabras);
-    $longest_word = 0;
-    $shortest_word = 0;
+    $longest_word = '';
+    $shortest_word = '';
 
-    for ($i = 0; $i < count($palabras); $i++) {
-        if (mb_strlen($palabras[$i] > mb_strlen($longest_word))) {
-            $longest_word = $palabras[$i];
+    foreach ($palabras as $palabra) {
+        $numLetras = strlen($palabra);
+        if ($numLetras > strlen($longest_word)) {
+            $longest_word = $palabra;
         }
-        if (mb_strlen($palabras[$i] < mb_strlen($shortest_word))) {
-            $shortest_word = $palabras[$i];
+        if ($shortest_word === '' || $numLetras < strlen($shortest_word)) {
+            $shortest_word = $palabra;
         }
     }
 
