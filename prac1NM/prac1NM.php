@@ -1,6 +1,7 @@
 <?php
 include("functions/functionsNM.php");
 include("functions/shopNM.php");
+include("functions/exeFunctNM.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,7 +10,8 @@ include("functions/shopNM.php");
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="stylesNM.css">
+    <link rel="stylesheet" href="stylesExe5NM.css">
 </head>
 
 <body>
@@ -206,8 +208,6 @@ include("functions/shopNM.php");
                 <th class="dias">Media</th>
             </tr>
             <?php
-
-
             $cityAvgMax;
             foreach ($temps as $ciudad => $info) {
                 echo "<tr>";
@@ -321,9 +321,9 @@ include("functions/shopNM.php");
     $numProduct2;
     $numProduct3;
     foreach ($discountProducts as $numProduct => $info) {
-        if($info['precio'] > 500){
+        if ($info['precio'] > 500) {
             $numProduct1 = $numProduct;
-        } else if($info['precio'] > 100) {
+        } else if ($info['precio'] > 100) {
             $numProduct2 = $numProduct;
         } else {
             $numProduct3 = $numProduct;
@@ -342,7 +342,7 @@ include("functions/shopNM.php");
             <th>Precio Con Descuento (con IVA)</th>
             <th>Stock</th>
         </tr>
-        
+
         <?php
         foreach ($discountProducts as $numProduct => $info) {
             echo "<tr>";
@@ -352,12 +352,12 @@ include("functions/shopNM.php");
             $priceIva = round(calculateIVA($info['precio']), 2);
             $priceFormated = formatPrice($priceIva);
             echo '<td class="tachado">' . $priceFormated . '</td>';
-            
+
             $discount = (100 - $info["descuento"]) / 100;
-            $priceDiscount = round($info["precio"] * $discount,2);
+            $priceDiscount = round($info["precio"] * $discount, 2);
             $priceIvaDiscount = round(calculateIVA($priceDiscount), 2);
             $priceFormatedDiscount = formatPrice($priceIvaDiscount);
-            echo '<td>' . $priceFormatedDiscount . " (-" . $info["descuento"] . "%)" .'</td>';
+            echo '<td>' . $priceFormatedDiscount . " (-" . $info["descuento"] . "%)" . '</td>';
 
             if ($info['stock'] > 10) {
                 echo '<td class="green">' . $info['stock'] . '</td>';
@@ -369,6 +369,60 @@ include("functions/shopNM.php");
                 echo '<td>' . $info['stock'] . '</td>';
             }
 
+            echo "</tr>";
+        }
+        ?>
+    </table>
+    <h3>Ejercicio 5</h3>
+
+    <p>
+        Sera una tabla con un numero de estudiantes, que cada estudiante tendra varias notas, se evaluara su media y dependiendo de su media estara aprobado o suspendido
+    </p>
+    <?php
+    $estudiantes = [
+        "Javier" => [4, 2, 8, 3],
+        "Rida" => [5, 2, 8, 7],
+        "Jesus" => [8, 6, 1, 4],
+        "Carlos" => [8, 2, 9, 9],
+    ];
+
+    ?>
+    <table>
+        <tr>
+            <th class="cabeceras">Estudiante</th>
+            <th class="cabeceras">Notas</th>
+            <th class="cabeceras">Media de Nota</th>
+            <th class="cabeceras">Estado</th>
+        </tr>
+        <?php
+        ksort($estudiantes);
+        foreach ($estudiantes as $nombre => $notas) {
+            echo "<tr>";
+            echo "<td>" . $nombre . "</td>";
+
+            // echo implode(", ", $notas); tmb funciona sin necesidad de contador
+        
+            echo "<td>";
+            $cont = 0;
+            foreach ($notas as $notas2) {
+                $cont++;
+                if ($cont == count($notas)) {
+                    echo $notas2;
+                } else {
+                    echo "$notas2, ";
+                }
+            }
+            echo "</td>";
+
+            $avg = round(promedio($notas), 1);
+            echo "<td>$avg</td>";
+
+            $aprobado = aprobado($avg);
+            if ($aprobado) {
+                echo '<td class="aprobado">Aprobado</td>';
+            } else {
+                echo '<td class="suspendido">Suspendido</td>';
+            }
             echo "</tr>";
         }
         ?>
