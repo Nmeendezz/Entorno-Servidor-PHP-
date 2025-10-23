@@ -14,7 +14,7 @@ function cadena($texto, ...$args)
 {
     $texto = strtolower(trim($texto, " "));
     $letras = str_split($texto);
-    
+
     $cont = 0;
     foreach ($args as $arg) {
         if (in_array(strtolower($arg), $letras)) {
