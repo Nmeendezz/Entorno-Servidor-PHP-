@@ -26,10 +26,7 @@ class Tennis extends Sport
     public function __tostring()
     {
         $ret = parent::__tostring() . " - Pista: " . $this->court . " - Numero de raquetas: ";
-        $cont = 0;
-        foreach ($this->rackets as $racket) {
-            $ret .= $racket . " - ";
-        }
+        $ret .= implode(" - ", $this->rackets);
         return $ret;
 
     }
