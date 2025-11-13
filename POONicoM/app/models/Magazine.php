@@ -63,15 +63,17 @@ class Magazine extends Material
     public function isAvailable()
     {
         if ($this->getAvailable()) {
-            return "Esta disponible";
+            return "Está disponible";
         }
-        return "No esta disponible";
+        return "No está disponible";
+    }
+    public function materialType(){
+        return "Revista";
     }
 
     public function __tostring(){
-        return "- ID de la Revista: " . $this->getId() .
-            "<br>- Titulo: " . $this->getTitle() .
-            "<br>- Disponible: " . $this->isAvailable() .
-            "<br>- Numero de Edición: " . $this->getEditionNumber();
+        $ret = parent::__tostring();
+        $ret .="<br>- Numero de Edición: " . $this->getEditionNumber();
+        return $ret;
     }
 }

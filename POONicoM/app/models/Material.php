@@ -45,4 +45,12 @@ abstract class Material
         return $this;
     }
     public abstract function isAvailable();
+
+    public abstract function materialType();
+
+    public function __tostring(){
+        return "- ID: " . $this->getId() .
+            "<br>- Titulo: " . $this->getTitle() .
+            "<br>- Disponible: " . $this->isAvailable();
+    }
 }

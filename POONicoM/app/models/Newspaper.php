@@ -62,15 +62,17 @@ final class Newspaper extends Material
     public function isAvailable()
     {
         if ($this->getAvailable()) {
-            return "Esta disponible";
+            return "Está disponible";
         }
-        return "No esta disponible";
+        return "No está disponible";
+    }
+    public function materialType(){
+        return "Periódico";
     }
 
     public function __tostring(){
-        return "- ID del Periódico: " . $this->getId() .
-            "<br>- Titulo: " . $this->getTitle() .
-            "<br>- Disponible: " . $this->isAvailable() .
-            "<br>- Fecha: " . $this->getDate();
+        $ret = parent::__tostring();
+        $ret .="<br>- Fecha: " . $this->getDate();
+        return $ret;
     }
 }

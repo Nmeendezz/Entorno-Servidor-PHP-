@@ -64,16 +64,19 @@ class Book extends Material
     public function isAvailable()
     {
         if ($this->getAvailable()) {
-            return "Esta disponible";
+            return "Está disponible";
         }
-        return "No esta disponible";
+        return "No está disponible";
+    }
+
+    public function materialType(){
+        return "Libro";
     }
     public function __tostring()
     {
-        return "- ID del Libro: " . $this->getId() .
-            "<br>- Titulo: " . $this->getTitle() .
-            "<br>- Disponible: " . $this->isAvailable() .
-            "<br>- Autor: " . $this->getAutor();
+        $ret = parent::__tostring();
+        $ret .="<br>- Autor del libro: " . $this->getAutor();
+        return $ret;
     }
 
 }
