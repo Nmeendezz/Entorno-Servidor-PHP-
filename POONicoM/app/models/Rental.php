@@ -1,6 +1,6 @@
 <?php
 
-class Rental
+final class Rental
 {
     public function __construct(
         private Material $material,

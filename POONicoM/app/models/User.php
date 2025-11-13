@@ -105,6 +105,15 @@ class User
         return null;
     }
 
+    // Metodo para validar si el correo electronico tiene un formato valido
+    public static function validarEmail($email) {
+        if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            return "El correo $email es válido.";
+        } else {
+            return "El correo $email no tiene un formato válido.";
+        }
+    }
+
     public function deleteRental(Rental $rentalToDelete){
         $rentalKey = $this->findRental($rentalToDelete);
         if($rentalKey != null){

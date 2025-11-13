@@ -1,7 +1,7 @@
 <?php
 include_once $_SERVER["DOCUMENT_ROOT"] . "/POONicoM/app/models/Material.php";
 
-class Magazine extends Material
+final class Magazine extends Material
 {
     public function __construct(
         $id,

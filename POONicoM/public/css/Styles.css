@@ -1,11 +1,23 @@
+* {
+    font-family: "Sanchez", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.sanchez-regular-italic {
+    font-family: "Sanchez", serif;
+    font-weight: 400;
+    font-style: italic;
+}
+
 nav {
     background-color: #fff;
-    height: 60px;
+    height: 70px;
     align-items: center;
     display: flex;
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
-    padding-left: 20px;
+    padding-left: 30px;
     justify-content: start;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
 }
@@ -31,7 +43,7 @@ nav div {
 
 .search-box input:focus {
     outline: grey solid 1.5px;
-    transition: all 0.08s;
+    transition: all 0.8s;
 }
 
 .search-box i {
@@ -51,18 +63,31 @@ body {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
+    padding: 20px;
 }
 
 .user-box {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: wrap;
     background-color: #fff;
-    padding: 10px;
+    padding: 20px;
     border-radius: 10px;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
-    margin-top: 20px;
-    font-size: 12px;
-    max-width: 22%;
+    margin-top: 15px;
+    font-size: 15px;
+    width: 400px;
     flex: 1;
+    min-width: 350px;
+}
+
+footer {
+    background-color: #fff;
+    margin-top: 40px;
+    padding: 20px 0;
+    text-align: center;
+    border-top: 1px solid #ccc;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px -6px 12px -2px, rgba(0, 0, 0, 0.3) 0px -3px 7px -3px
 }
