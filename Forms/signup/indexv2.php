@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-if ($_SESSION["origin"] != "signup" || !isset($_SESSION["origin"])) {
+if (!isset($_SESSION["origin"]) || $_SESSION["origin"] != "signup") {
     header("Location: signupv2.php");
     exit();
 }
@@ -26,21 +26,22 @@ if ($_SESSION["origin"] != "signup" || !isset($_SESSION["origin"])) {
 
 
     if ($_SERVER['REQUEST_METHOD'] == "POST") {
-        $name = $_POST["name"];
-        $email = $_POST["email"];
-        $pass = $_POST["pass"];
-        $pass2 = $_POST["pass2"];
-        $age = $_POST["age"];
-        var_dump($_POST);
+        $name = $_SESSION["name"];
+        $email = $_SESSION["email"];
+        $pass = $_SESSION["pass"];
+        $pass2 = $_SESSION["pass2"];
+        $age = $_SESSION["age"];
+        var_dump($_SESSION);
 
         if (empty($age)) {
             $age = 0;
         }
 
         $studies = [];
-        if (isset($_POST["studies"])) {
-            $studies = $_POST["studies"];
+        if (isset($_SESSION["studies"])) {
+            $studies = $_SESSION["studies"];
         }
+        
         require "User.php";
         $u = new User($name, $email, $pass, $studies);
         echo "<p>$u</p>";

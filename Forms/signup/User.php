@@ -10,9 +10,9 @@ class User{
     ){}
 
     public function __tostring(){
-        return "{$this->name} 
-        {$this->password} 
-        {$this->email} 
-        {$this->age}" . implode(",", $this->curso);
+        return "{$this->name}, 
+        {$this->password}, 
+        {$this->email}, 
+        {$this->age}, " . implode(", ", $this->curso);
     }
 }
