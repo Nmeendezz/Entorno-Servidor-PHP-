@@ -24,6 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $pass = secure($_POST["pass"]);
     $pass2 = secure($_POST["pass2"]);
     $age = secure($_POST["age"]);
+
     if (isset($_POST["studies"])) {
         $studies = $_POST["studies"];
     }
@@ -40,12 +41,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
         $_SESSION["origin"] = "signup";
 
-        header("Location: indexv2.php");
+        header("Location: ../indexv2.php");
         exit();
     }
 }
 
-var_dump($_SERVER);
 ?>
 
 
@@ -87,7 +87,7 @@ var_dump($_SERVER);
         <p>Cursos</p>
         <input type="checkbox" id="daw" name="studies[]" value="daw" <?php
         if (in_array("daw", $studies)) {
-            echo "\"checked\"";
+            echo "checked";
         }
         ?>>
         <label for="daw">DAW</label><br>

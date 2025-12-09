@@ -1,0 +1,70 @@
+/* Fuente moderna y colores suaves */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f9f9f9;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+/* Encabezado */
+h1 {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 2.5rem;
+    color: #444;
+}
+
+/* Contenedor principal */
+.container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Tarjeta de receta */
+.recipe-card {
+    border-left: 8px solid var(--recipe-color, #ff9800);
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 8px;
+    background: #fafafa;
+}
+
+/* Estilo de los datos */
+.recipe-card p {
+    font-size: 1.1rem;
+    margin: 8px 0;
+}
+
+/* Etiquetas destacadas */
+.tag {
+    display: inline-block;
+    padding: 6px 12px;
+    margin: 5px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    background: #eee;
+    color: #555;
+}
+
+/* Botón */
+button {
+    display: block;
+    margin: 20px auto;
+    padding: 12px 24px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 6px;
+    background: #4CAF50;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #45a049;
+}

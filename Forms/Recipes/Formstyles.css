@@ -1,0 +1,101 @@
+body {
+    font-family: "Poppins", sans-serif;
+    background: linear-gradient(135deg, #141e30, #243b55);
+    color: #f1f1f1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    min-height: 100vh;
+}
+
+form {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px);
+    padding: 25px 35px;
+    border-radius: 12px;
+    width: 380px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+label {
+    display: block;
+    margin-top: 15px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.glutenLabel{
+    display: inline-block;
+}
+
+label[for="cookie"]{
+    display: inline-block;
+}
+input[type="text"],
+input[type="email"],
+input[type="number"],
+input[type="color"],
+select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 8px;
+    border: none;
+    border-radius: 8px;
+    outline: none;
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+    font-size: 0.95rem;
+}
+
+select option {
+    background: #243b55;
+    color: #fff;
+}
+
+select option:hover {
+    background: #141e30;
+    color: #fff;
+}
+
+
+input[type="color"] {
+    height: 45px;
+    padding: 3px;
+    cursor: pointer;
+}
+
+input[type="radio"] {
+    margin-right: 5px;
+    transform: scale(1.2);
+}
+
+input[type="submit"],
+input[type="reset"] {
+    width: 100%;
+    margin-top: 25px;
+    background: #ffae00;
+    color: #000;
+    border: none;
+    padding: 12px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s ease;
+    letter-spacing: 1px;
+}
+
+input[type="submit"]:hover,
+input[type="reset"]:hover {
+    background: #ffc74d;
+    transform: translateY(-2px);
+}
+input[type="reset"]{
+    margin-top: 10px;
+}
+.error {
+    color: #ff6767;
+    font-size: 0.8rem;
+    margin-top: 3px;
+}
