@@ -15,3 +15,7 @@ function findMaterialId(Material $materials, $id) {
     }
     return null;
 }
+
+function secure($text){
+    return htmlspecialchars(stripslashes(trim($text)));
+}

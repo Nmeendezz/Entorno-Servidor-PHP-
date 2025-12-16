@@ -9,6 +9,18 @@
     font-weight: 400;
     font-style: italic;
 }
+header{
+    position: fixed;
+    top: 0;
+}
+
+footer{
+    position: fixed;
+    bottom: 0;
+}
+.nav-menu li{
+    display: inline-block;
+}
 
 nav {
     background-color: #fff;

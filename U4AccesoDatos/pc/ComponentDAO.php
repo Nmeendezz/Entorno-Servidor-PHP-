@@ -26,7 +26,7 @@ class ComponentDAO
         $sql = "SELECT * FROM components WHERE id = $id";
         $result = $conn->query($sql);
         $conn->close();
-        if(($row = $result->fetch_assoc()) != null){
+        if (($row = $result->fetch_assoc()) != null) {
             return new Component(
                 $row["name"],
                 $row["brand"],
@@ -75,6 +75,20 @@ class ComponentDAO
 
     public static function readAll(mysqli $conn): array
     {
+        $conn = CoreDB::getConnection();
+        $components = [];
+        $sql = "SELECT * FROM components";
+        $rows = $conn->query($sql);
+        $conn->close();
+        while (($row = $rows->fetch_assoc()) != null) {
+            $components[] = new Component(
+                $row["name"],
+                $row["brand"],
+                $row["model"],
+                $row["id"],
+            );
+        }
+        return $components;
     }
 
 }
