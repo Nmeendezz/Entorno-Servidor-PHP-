@@ -1,0 +1,139 @@
+/* ===== VARIABLES ===== */
+:root {
+    --font-main: "Sanchez", serif;
+    --color-bg: #f6f7f9;
+    --color-white: #ffffff;
+    --color-border: #dcdcdc;
+    --color-primary: #4a5568;
+    --color-primary-soft: #edf2f7;
+    --color-error: #c0392b;
+    --radius: 10px;
+    --transition: 0.25s ease;
+}
+
+
+/* ===== BODY ===== */
+body {
+    background-color: var(--color-bg);
+    min-height: 100vh;
+    padding-top: 70px;
+    padding-bottom: 60px;
+}
+
+
+/* ===== CONTENEDOR FORM ===== */
+.form-container {
+    max-width: 450px;
+    margin: 60px auto;
+    background-color: var(--color-white);
+    padding: 35px;
+    border-radius: var(--radius);
+    box-shadow:
+        rgba(50, 50, 93, 0.15) 0px 10px 20px -5px,
+        rgba(0, 0, 0, 0.15) 0px 5px 10px -5px;
+    animation: fadeIn 0.5s ease;
+}
+
+/* ===== TÍTULO ===== */
+.form-container h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 24px;
+    color: var(--color-primary);
+}
+
+/* ===== GRUPOS ===== */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 18px;
+}
+
+/* Campos ocultos (JS) */
+.form-group[style*="display: none"] {
+    margin-bottom: 0;
+}
+
+/* ===== LABEL ===== */
+.form-group label {
+    margin-bottom: 6px;
+    font-size: 14px;
+    color: var(--color-primary);
+}
+
+/* ===== INPUTS ===== */
+.form-group input {
+    height: 40px;
+    padding: 0 12px;
+    border-radius: 6px;
+    border: 1px solid var(--color-border);
+    font-size: 14px;
+    transition: var(--transition);
+}
+
+.form-group input::placeholder {
+    color: #aaa;
+}
+
+/* Focus accesible */
+.form-group input:focus-visible {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px var(--color-primary-soft);
+}
+
+/* ===== ERRORES ===== */
+.form-group div,
+.error-message {
+    color: var(--color-error);
+    font-size: 12px;
+    margin-top: 5px;
+    display: none;
+}
+
+/* ===== BOTÓN ===== */
+button[type="submit"] {
+    width: 100%;
+    height: 42px;
+    margin-top: 10px;
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+button[type="submit"]:hover {
+    background-color: #2d3748;
+}
+
+button[type="submit"]:active {
+    transform: scale(0.98);
+}
+
+/* ===== ANIMACIÓN ===== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 480px) {
+    .form-container {
+        margin: 30px 15px;
+        padding: 25px;
+    }
+
+    .form-container h2 {
+        font-size: 22px;
+    }
+}

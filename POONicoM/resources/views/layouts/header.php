@@ -1,6 +1,6 @@
 <!-- Header -->
 <header>
-    <h1>Mi aplicacion web</h1>
+    <h1>Biblioteca Digital</h1>
     <nav>
         <ul class="nav-menu">
             <li><a href="/POONicoM/resources/views/components/form-login.php">Login</a></li>

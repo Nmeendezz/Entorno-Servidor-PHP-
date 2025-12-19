@@ -23,7 +23,7 @@
         <button type="submit">Iniciar Sesión</button>
 
         <div class="form-footer">
-            ¿No tienes cuenta? <a href="/ejercicio-users/public/form-signup.php" id="go-to-signup">Regístrate</a>
+            ¿No tienes cuenta? <a href="/POONicoM/public/form-signup.php" id="go-to-signup">Regístrate</a>
         </div>
     </form>
 </div>
