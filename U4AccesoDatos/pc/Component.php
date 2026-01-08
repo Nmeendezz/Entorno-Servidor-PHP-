@@ -13,7 +13,7 @@ class Component
 
     public function __toString()
     {
-        return "id: $this->id - Name: $this->name - Bran: $this->brand - Model: $this->model";
+        return "id: $this->id - Name: $this->name - Brand: $this->brand - Model: $this->model";
     }
 
     public function getName()

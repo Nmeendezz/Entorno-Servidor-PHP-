@@ -4,9 +4,10 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/U4AccesoDatos/pc/Component.php";
 class ComponentDAO
 {
 
-    public static function create(Component $c, ): int
+    public static function create(Component $c, $pc_id = null): int
     {
         $conn = CoreDB::getConnection();
+        /* 
         $sql = "INSERT into components (name, brand, model) values (
         \"{$c->getName()}\",
         \"{$c->getBrand()}\",
@@ -18,6 +19,30 @@ class ComponentDAO
         $c->setId($id);
         $conn->close();
         return $id;
+        */
+
+
+        // hago el bind
+        $sql = "INSERT INTO components (name, brand, model, pc_id) 
+            values (?, ?, ?, ?)";
+        
+        $ps = $conn->prepare($sql);
+
+        $name = $c->getName();
+        $brand = $c->getBrand();
+        $model = $c->getModel();
+
+        $ps->bind_param("ssss", $name, $brand, $model, $pc_id);
+
+        // ejecuto la query
+        $ret = $ps->execute();
+
+
+        // obtengo el id con el que se ha insertado
+        $id = $conn->insert_id;
+        $c->setId($id);
+
+        // return
     }
 
     public static function read(int $id): ?Component
