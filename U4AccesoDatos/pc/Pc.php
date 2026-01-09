@@ -11,6 +11,9 @@ class Pc
     ) {
     }
 
+    public function addComponent($c){
+        $this->components[] = $c;
+    }
     public function getId()
     {
         return $this->id;

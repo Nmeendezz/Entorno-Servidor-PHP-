@@ -12,7 +12,7 @@ class PcDAO
      * @param Pc $pc
      * @return bool 1 si lo inserta, 0 si no lo inserta
      */
-    private static function create($pc): bool
+    public static function create($pc): bool
     {
         $conn = CoreDB::getConnection();
         $sql = "INSERT INTO pcs (id, owner, brand, price)
@@ -34,8 +34,7 @@ class PcDAO
         /* Guardo los componentes de la BBDD */
 
         foreach($pc->getComponents() as $component){
-            ComponentDAO::create($component);
-
+            ComponentDAO::create($component, $id);
         }
         
         $conn->close();
@@ -49,22 +48,46 @@ class PcDAO
      * @param string $id
      * @return Pc
      */
-    private static function read($id): ?Pc
+    public static function read($id): ?Pc
     {
-        return null;
+        $conn = CoreDB::getConnection();
+        $sql = "SELECT * FROM pcs WHERE id = ?";
+        $ps = $conn->prepare($sql);
+
+        $ps->bind_param("s", $id);
+
+        $ps->execute();
+
+        $res = $ps->get_result();
+
+        if($res->num_rows > 0){
+            $row = $res->fetch_assoc();
+            $pc = new Pc($id, $row["owner"], $row["brand"], $row["price"]);
+
+            
+        } else {
+            $pc = null;
+        }
+
+
+
+
+
+        $conn->close();
+        return $pc;
     }
 
-    private static function update($pc): bool
+    public static function update($pc): bool
     {
         return false;
     }
 
-    private static function delete($id): ?Pc
+    public static function delete($id): ?Pc
     {
         return null;
     }
 
-    private static function readAll()
+    public static function readAll()
     {
 
     }
@@ -76,7 +99,7 @@ class PcDAO
      * @param mixed $max
      * @return array
      */
-    private static function readBetweenPrice($min, $max)
+    public static function readBetweenPrice($min, $max)
     {
 
     }
