@@ -27,16 +27,18 @@ class PcDAO
         $price = $pc->getPrice();
         $ps->bind_param("sssd", $id, $owner, $brand, $price);
 
-        /* Ejecuto la sentencia */
+        try {
+            /* Ejecuto la sentencia */
+            $ret = $ps->execute(); // Aqui se guarda el ordenador
 
-        $ret = $ps->execute(); // Aqio se guarda el ordenador
-        
-        /* Guardo los componentes de la BBDD */
-
-        foreach($pc->getComponents() as $component){
-            ComponentDAO::create($component, $id);
+            /* Guardo los componentes de la BBDD */
+            foreach ($pc->getComponents() as $component) {
+                ComponentDAO::create($component, $id);
+            }
+        } catch(mysqli_sql_exception $e){
+            // return $e->getMessage(); // Aqui se devolveria el mensaje asociado a la excepcion
+            return false;
         }
-        
         $conn->close();
 
         return $ret;
@@ -60,18 +62,14 @@ class PcDAO
 
         $res = $ps->get_result();
 
-        if($res->num_rows > 0){
+        if ($res->num_rows > 0) {
             $row = $res->fetch_assoc();
             $pc = new Pc($id, $row["owner"], $row["brand"], $row["price"]);
 
-            
+            $pc->setComponents(ComponentDAO::readByPcId($id));
         } else {
             $pc = null;
         }
-
-
-
-
 
         $conn->close();
         return $pc;
@@ -82,6 +80,11 @@ class PcDAO
         return false;
     }
 
+    /**
+     * Elimina un pc de la BBDD <strong> junto con todos sus componentes asociados </strong>
+     * @param string $id id del pc que quiero eliminar
+     * @return Pc|null 
+     */
     public static function delete($id): ?Pc
     {
         return null;

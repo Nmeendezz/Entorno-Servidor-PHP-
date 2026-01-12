@@ -120,9 +120,22 @@ class ComponentDAO
 
 
     public static function readByPcId($id){
+        $components = [];
         $conn = CoreDB::getConnection();
-        $sql = "SELECT * FROM pcs WHERE id = $id";
+        $sql = "SELECT * FROM components WHERE pc_id = ?";
 
         $ps = $conn->prepare($sql);
+
+        $ps->bind_param("s", $id);
+
+        $ps->execute();
+
+        $res = $ps->get_result();
+        while(($row = $res->fetch_assoc()) != null){
+            $components[] = new Component($row["name"], $row["brand"], $row["model"], $row["id"]);
+        }
+
+        $conn->close();
+        return $components;
     }
 }

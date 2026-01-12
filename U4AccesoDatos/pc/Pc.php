@@ -73,4 +73,8 @@ class Pc
 
         return $this;
     }
+
+    public function __tostring(){
+        return "- ID: $this->id <br>- Owner: $this->owner <br>- Brand: $this->brand <br>- Price: $this->price <br>Components: " . implode(" // ", $this->components);
+    }
 }
