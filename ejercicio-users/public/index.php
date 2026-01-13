@@ -1,10 +1,10 @@
 <?php
 session_start();
 
-if (!(isset($_COOKIE["stay-connected"]) or isset($_SESSION["origin"]))){
-    $_SESSION["error"]= "Te has intentado colar en el index";
-   // header("Location: form-login.php");
-   // exit();
+if (!(isset($_COOKIE["stay-connected"]) or isset($_SESSION["origin"]))) {
+    $_SESSION["error"] = "Te has intentado colar en el index";
+    header("Location: form-login.php");
+    exit();
 }
 ?>
 
@@ -44,7 +44,7 @@ if (!(isset($_COOKIE["stay-connected"]) or isset($_SESSION["origin"]))){
 
             echo "$u1";
         }
-        
+
         if (isset($_SESSION["origin"]) and $_SESSION["origin"] == "login") {
             echo "<p>Te damos la bienvenida, {$_SESSION['email']}</p>";
         }

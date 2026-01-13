@@ -35,7 +35,7 @@ class PcDAO
             foreach ($pc->getComponents() as $component) {
                 ComponentDAO::create($component, $id);
             }
-        } catch(mysqli_sql_exception $e){
+        } catch (mysqli_sql_exception $e) {
             // return $e->getMessage(); // Aqui se devolveria el mensaje asociado a la excepcion
             return false;
         }
@@ -87,11 +87,29 @@ class PcDAO
      */
     public static function delete($id): ?Pc
     {
-        return null;
+        $pc = PcDAO::read($id);
+        if($pc == null){
+            return null;
+        }
+
+        $conn = CoreDB::getConnection();
+
+        foreach($pc->getComponents() as $c){
+            ComponentDAO::delete($c->getId());
+        }
+
+        $sql = "DELETE FROM pcs WHERE id = ?";
+        $ps = $conn->prepare($sql);
+        $ps->bind_param("s", $id);
+        $ps->execute();
+
+        $conn->close();
+        return $pc;
     }
 
     public static function readAll()
     {
+
 
     }
 

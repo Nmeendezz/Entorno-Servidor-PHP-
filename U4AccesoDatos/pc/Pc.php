@@ -75,6 +75,6 @@ class Pc
     }
 
     public function __tostring(){
-        return "- ID: $this->id <br>- Owner: $this->owner <br>- Brand: $this->brand <br>- Price: $this->price <br>Components: " . implode(" // ", $this->components);
+        return "<br>- ID: $this->id <br>- Owner: $this->owner <br>- Brand: $this->brand <br>- Price: $this->price <br>Components: " . implode(" // ", $this->components);
     }
 }
