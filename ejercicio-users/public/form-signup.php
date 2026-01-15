@@ -2,7 +2,7 @@
 session_start();
 
 $fullname = $email = $pass = $region = $connect = "";
-$passError = $nameError = $emailError = "";
+$passError = $nameError = $emailError = $errorDb = "";
 $errors = false;
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -13,33 +13,44 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $pass2 = secure($_POST["confirm-password"]);
     $region = $_POST["region"];
 
-    if(isset($_POST["stay-connected"])){
+    if (isset($_POST["stay-connected"])) {
         $connect = $_POST["stay-connected"];
     }
 
-    if(empty($fullname)){
+    if (empty($fullname)) {
         $errors = true;
         $nameError = "El nombre es obligatorio";
     }
 
-    if(empty($email)){
+    if (empty($email)) {
         $errors = true;
         $emailError = "El email es obligatorio";
     }
-    
-    if(empty($pass) || $pass != $pass2){
+
+    if (empty($pass) || $pass != $pass2) {
         $errors = true;
         $passError = "Las contraseñas no coinciden";
     }
 
-    if(!$errors){
-        $_SESSION["fullname"] = $fullname;
-        $_SESSION["signup-email"] = $email;
-        // $_SESSION["signup-password"] = $pass;
-        $_SESSION["region"] = $region;
-        $_SESSION["origin"] = "signup";
+    if (!$errors) {
 
-        header("Location: index.php");
+        require_once $_SERVER['DOCUMENT_ROOT'] . "/ejercicio-users/app/repositories/UserDAO.php";
+        $u = new User($fullname, $email, $pass, Region::fromCaseName($region));
+        if (UserDAO::create($u)) {
+            // Lo que queramos que pase cuando el signup ha sido exitoso
+            $_SESSION["fullname"] = $fullname;
+            $_SESSION["signup-email"] = $email;
+            // $_SESSION["signup-password"] = $pass;
+            $_SESSION["region"] = $region;
+            $_SESSION["origin"] = "signup";
+            $_SESSION["id"] = $u->getId();
+            header("Location: index.php");
+            exit();
+        } else {
+            // Lo que queramos que pase cuando 
+            $errorDb = "Ya existe ese email";
+        }
+
     }
 }
 

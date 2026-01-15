@@ -11,9 +11,9 @@ $errors = false;
 if (isset($_COOKIE["stay-connected"])) {
     $_SESSION["email"] = $_COOKIE["stay-connected"];
     $_SESSION["origin"] = "login";
-    echo "ME VOYYY";
-    //header("Location: index.php");
-    //exit();
+
+    header("Location: index.php");
+    exit();
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

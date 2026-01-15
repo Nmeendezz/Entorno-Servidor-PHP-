@@ -52,6 +52,6 @@ final class Rental
         "<br>" . $this->getMaterial() .
         "<br>- Fecha de prestamo: " . $this->getRentalDate() .
         "<br>- Fecha de devolución: " . $this->getRentalReturnDate() .
-        "</li></ul>";
+        "</li></ul>";   
     }
 }

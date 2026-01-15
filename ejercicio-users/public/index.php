@@ -25,6 +25,10 @@ if (!(isset($_COOKIE["stay-connected"]) or isset($_SESSION["origin"]))) {
     <main>
 
         <?php
+        require_once $_SERVER['DOCUMENT_ROOT'] . "/ejercicio-users/app/repositories/UserDAO.php";
+        //$id = $_SESSION["id"];
+        //$u = UserDAO::read($id);
+        //echo "<p>$u</p>";
 
         if (isset($_SESSION['origin']) && $_SESSION['origin'] == "signup") {
             require_once $_SERVER["DOCUMENT_ROOT"] . "/ejercicio-users/app/models/User.php";

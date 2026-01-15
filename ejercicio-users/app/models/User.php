@@ -67,4 +67,21 @@ class User
         return $this;
     }
 
+    public function getRegionAsRegion()
+    {
+        return $this->region->value;
+    }
+
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
 }

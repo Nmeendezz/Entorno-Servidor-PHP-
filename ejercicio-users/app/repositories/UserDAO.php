@@ -16,7 +16,7 @@ class UserDAO
         $name = $user->getName();
         $pass = $user->getPass();
         $passHash = password_hash($pass, PASSWORD_DEFAULT);
-        $region = $user->getRegion();
+        $region = $user->getRegionAsRegion();
         $ps->bind_param("ssss", $email, $name, $passHash, $region);
 
         try {
