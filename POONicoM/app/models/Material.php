@@ -6,8 +6,7 @@ abstract class Material
         protected int $id,
         protected string $title,
         protected bool $available = true
-    ) {
-    }
+    ) {}
 
     public function getId()
     {

@@ -6,25 +6,26 @@
 
         <div class="form-group" id="username-group">
             <label for="name">Nombre</label>
-            <input type="text" id="name" name="name" placeholder="Nombre" required>
+            <input type="text" id="name" name="name" placeholder="Nombre" value="<?= $name ?>">
             <div id="name-error">Por favor introduce tu nombre</div>
+            <?= empty($nameError) ? "" : "<p class='p-error'>$nameError</p>" ?>
         </div>
 
         <div class="form-group" id="username-group">
             <label for="surname">Apellido</label>
-            <input type="text" id="surname" name="surname" placeholder="Apellido" required>
+            <input type="text" id="surname" name="surname" placeholder="Apellido" value="<?= $surname ?>" required>
             <div id="surname-error">Por favor introduce tu apellido</div>
         </div>
 
         <div class="form-group" id="username-group" >
             <label for="dni">DNI</label>
-            <input type="text" id="dni" name="dni" placeholder="DNI" minlength="7" maxlength="8" required>
+            <input type="text" id="dni" name="dni" placeholder="DNI" minlength="7" maxlength="9" value="<?= $dni ?>"required>
             <div id="name-error">Por favor introduce un DNI válido</div>
         </div>
 
         <div class="form-group" id="email-group">
             <label for="email">Email</label>
-            <input type="email" id="email" name="email" placeholder="tu@email.com" required>
+            <input type="email" id="email" name="email" placeholder="tu@email.com" value="<?= $dni ?>" required>
             <div id="email-error">Por favor introduce un email válido</div>
         </div>
 

@@ -7,7 +7,7 @@
             <input type="text" id="fullname" name="fullname" placeholder="Tu nombre completo" value="<?= $fullname ?>"
                 class="<?= empty($nameError) ? "" : "input-error" ?>">
             <div class="error-message" id="fullname-error">Por favor, introduce tu nombre completo</div>
-            <?= empty($nameError) ? "" : "<p class='p-error'>$nameError</p>" ?></p>
+            <?= empty($nameError) ? "" : "<p class='p-error'>$nameError</p>" ?>
         </div>
 
         <div class="form-group">
@@ -15,7 +15,7 @@
             <input type="email" id="signup-email" name="signup-email" placeholder="tu@email.com" value="<?= $email ?>"
                 class="<?= empty($emailError) ? "" : "input-error" ?>">
             <div class="error-message" id="signup-email-error">Por favor, introduce un email válido</div>
-            <?= empty($emailError) ? "" : "<p class='p-error'>$emailError</p>" ?></p>
+            <?= empty($emailError) ? "" : "<p class='p-error'>$emailError</p>" ?>
         </div>
 
         <div class="form-group">
@@ -29,7 +29,7 @@
             <input type="password" id="confirm-password" name="confirm-password" placeholder="Repite tu contraseña"
                 class="<?= empty($passError) ? "" : "input-error" ?>">
             <div class="error-message" id="confirm-password-error">Las contraseñas no coinciden</div>
-            <?= empty($passError) ? "" : "<p class='p-error'>$passError</p>" ?></p>
+            <?= empty($passError) ? "" : "<p class='p-error'>$passError</p>" ?>
         </div>
 
         <div class="form-group">

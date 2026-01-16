@@ -33,7 +33,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     }
 
     if (!$errors) {
-
         require_once $_SERVER['DOCUMENT_ROOT'] . "/ejercicio-users/app/repositories/UserDAO.php";
         $u = new User($fullname, $email, $pass, Region::fromCaseName($region));
         if (UserDAO::create($u)) {
@@ -71,6 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     <!-- Incluir cabecera -->
     <?php include $_SERVER["DOCUMENT_ROOT"] . "/ejercicio-users/resources/views/layouts/header.php" ?>
     <main>
+        <?= $errorDb ?>
         <?php include $_SERVER["DOCUMENT_ROOT"] . "/ejercicio-users/resources/views/components/signup.php" ?>
     </main>
     <!-- Incluir footer -->

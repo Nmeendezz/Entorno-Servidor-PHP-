@@ -9,9 +9,21 @@ class User
         private string $email,
         private string $password,
         private array $rentals = [],
+        private int $id = -1
     ) {
     }
 
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
     public function getName()
     {
         return $this->name;
@@ -84,21 +96,24 @@ class User
         return $this;
     }
 
-    public function getFullName(){
+    public function getFullName()
+    {
         return $this->getName() . " " . $this->getSurname();
     }
-    public function addRental(Rental $rentalToAdd){
-        foreach($this->rentals as $rental){
-            if($rental === $rentalToAdd){
+    public function addRental(Rental $rentalToAdd)
+    {
+        foreach ($this->rentals as $rental) {
+            if ($rental === $rentalToAdd) {
                 return null;
             }
         }
         $this->rentals[] = $rentalToAdd;
     }
 
-    public function findRental(Rental $rentalToFind){
-        foreach($this->rentals as $key => $rental){
-            if($rental === $rentalToFind){
+    public function findRental(Rental $rentalToFind)
+    {
+        foreach ($this->rentals as $key => $rental) {
+            if ($rental === $rentalToFind) {
                 return $key;
             }
         }
@@ -106,7 +121,8 @@ class User
     }
 
     // Metodo para validar si el correo electronico tiene un formato valido
-    public static function validarEmail($email) {
+    public static function validarEmail($email)
+    {
         if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
             return "El correo $email es válido.";
         } else {
@@ -114,23 +130,26 @@ class User
         }
     }
 
-    public function deleteRental(Rental $rentalToDelete){
+    public function deleteRental(Rental $rentalToDelete)
+    {
         $rentalKey = $this->findRental($rentalToDelete);
-        if($rentalKey != null){
+        if ($rentalKey != null) {
             unset($this->rentals[$rentalKey]);
             $this->rentals = array_values($this->rentals);
         }
     }
 
-    public function __tostring(){
-        $ret = "- Nombre: " . $this->getFullName() . 
-        "<br>- DNI: " . $this->getDni() . 
-        "<br>- Email: " . $this->getEmail() . 
-        "<br>- Contraseña: " . $this->getPassword() . 
-        "<br>- Alquileres: <br>";
+    public function __tostring()
+    {
+        $ret = "- Nombre: " . $this->getFullName() .
+            "<br>- DNI: " . $this->getDni() .
+            "<br>- Email: " . $this->getEmail() .
+            "<br>- Contraseña: " . $this->getPassword() .
+            "<br>- Alquileres: <br>";
 
         $ret .= implode("<br>", $this->getRentals());
 
         return $ret;
     }
+
 }

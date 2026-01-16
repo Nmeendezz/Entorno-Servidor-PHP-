@@ -1,8 +1,8 @@
 <?php
 session_start();
 
-$name = $surname = $dni = $email = $pass = "";
-$nameError = $surnameError = $dniError = $emailError = $passError = "";
+$name = $surname = $dni = $email = $pass = $connect = "";
+$nameError = $surnameError = $dniError = $emailError = $passError = $errorDb = "";
 $errors = false;
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -13,6 +13,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $email = secure($_POST['email']);
     $pass = secure($_POST['password']);
     $pass2 = secure($_POST['confirm-password']);
+
+    if (isset($_POST["stay-connected"])) {
+        $connect = $_POST["stay-connected"];
+    }
 
     if (empty($name)) {
         $nameError = "Es obligatorio introducir el nombre";
@@ -39,19 +43,28 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $errors = true;
     }
 
-    if ($pass != $pass2) {
+    if (empty($pass) || $pass != $pass2) {
         $passError = "Las contraseñas no coinciden";
         $errors = true;
     }
 
     if (!$errors) {
-        $_SESSION['name'] = $name;
-        $_SESSION['surname'] = $surname;
-        $_SESSION['dni'] = $dni;
+        require_once $_SERVER['DOCUMENT_ROOT'] . "/POONicoM/app/repositories/UserDAO.php";
+        $u = new User($name, $surname, $dni, $email, "");
+        if (UserDAO::create($u)) {
+            $_SESSION['name'] = $name;
+            $_SESSION['surname'] = $surname;
+            $_SESSION['dni'] = $dni;
+            $_SESSION['email'] = $email;
+            $_SESSION["id"] = $u->getId();
+            $_SESSION['origin'] = "signup";
 
-        $_SESSION['origin'] = "signup";
+            header("Location: form-login.php");
+            exit();
+        } else {
+            $errorDb = "Ya existe el email introducido";
+        }
 
-        header("Location: index.php");
     }
 }
 
@@ -76,7 +89,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     <!-- HEADER -->
     <?php include $_SERVER['DOCUMENT_ROOT'] . "/POONicoM/resources/views/layouts/header.php" ?>
     <main>
+        <?php if($errorDb){?>
+            <script> alert("<?= $errorDb ?>"); </script>
         <?php
+        }
+        
         include $_SERVER['DOCUMENT_ROOT'] . "/POONicoM/resources/views/components/signup.php";
         ?>
     </main>
