@@ -26,4 +26,31 @@ class BookDAO
 
         $conn->close();
     }
+
+    public static function read($id)
+    {
+        $conn = CoreDB::getConnection();
+        $sql = "SELECT * FROM books WHERE id = ?";
+        $ps = $conn->prepare($sql);
+
+        $ps->bind_param("s", $id);
+        $ps->execute();
+
+        $res = $ps->get_result();
+
+        $conn->close();
+        if ($res->num_rows > 0) {
+            $row = $res->fetch_assoc();
+            return new Book(
+                $id, 
+                $row["title"], 
+                $row["available"], 
+                $row["autor"], 
+                $row["isbn"]);
+        }
+        return null;
+    }
+    public static function delete($id){
+
+    }
 }
