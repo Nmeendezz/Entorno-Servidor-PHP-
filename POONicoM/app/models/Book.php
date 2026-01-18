@@ -7,7 +7,8 @@ final class Book extends Material
         $id,
         $title,
         $available,
-        private string $autor
+        private string $autor,
+        private string $isbn
     ) {
         parent::__construct($id, $title, $available);
     }
@@ -61,6 +62,17 @@ final class Book extends Material
         return $this;
     }
 
+    public function getIsbn()
+    {
+        return $this->isbn;
+    }
+
+    public function setIsbn($isbn)
+    {
+        $this->isbn = $isbn;
+
+        return $this;
+    }
     public function isAvailable()
     {
         if ($this->getAvailable()) {
@@ -69,14 +81,17 @@ final class Book extends Material
         return "No está disponible";
     }
 
-    public function materialType(){
+    public function materialType()
+    {
         return "Libro";
     }
     public function __tostring()
     {
         $ret = parent::__tostring();
-        $ret .="<br>- Autor del libro: " . $this->getAutor();
+        $ret .= "<br>- Autor del libro: " . $this->getAutor() .
+            "<br>- ISBN del libro: " . $this->getIsbn();
         return $ret;
     }
+
 
 }

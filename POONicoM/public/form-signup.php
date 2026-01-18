@@ -93,7 +93,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             <script> alert("<?= $errorDb ?>"); </script>
         <?php
         }
-        
         include $_SERVER['DOCUMENT_ROOT'] . "/POONicoM/resources/views/components/signup.php";
         ?>
     </main>

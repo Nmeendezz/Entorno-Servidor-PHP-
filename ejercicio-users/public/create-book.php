@@ -15,7 +15,6 @@
 <body>
     <?php 
 
-
 ?>
     <!-- Incluir cabecera -->
     <?php include $_SERVER["DOCUMENT_ROOT"] . "/ejercicio-users/resources/views/layouts/header.php" ?>

@@ -29,7 +29,16 @@ if (!(isset($_COOKIE["stay-connected"]) or isset($_SESSION["origin"]))) {
         if (isset($_SESSION['origin']) && $_SESSION['origin'] == "signup") {
             require_once $_SERVER["DOCUMENT_ROOT"] . "/ejercicio-users/app/models/User.php";
 
-            $u 
+            $u = new User(
+                $_SESSION["name"],
+                $_SESSION["surname"],
+                $_SESSION["dni"],
+                $_SESSION["email"],
+                "",
+                [""],
+                $_SESSION["id"]
+            );
+            echo "<p>Te damos la bienvenida, $u</p>";
         }
         ?>
     </main>
