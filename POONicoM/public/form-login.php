@@ -12,7 +12,7 @@ if (isset($_COOKIE["stay-connected"])) {
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     //Ha llegado después de hacer clic en Submit
     //1. Recojo datos securizando
-    include_once $_SERVER["DOCUMENT_ROOT"] . "/POONicoM\utils\Function.php";
+    include_once $_SERVER["DOCUMENT_ROOT"] . "/POONicoM/utils/Function.php";
 
     $email = secure($_POST['email']);
     $pass = secure($_POST['password']);

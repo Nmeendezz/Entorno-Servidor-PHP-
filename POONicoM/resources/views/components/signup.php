@@ -25,7 +25,7 @@
 
         <div class="form-group" id="email-group">
             <label for="email">Email</label>
-            <input type="email" id="email" name="email" placeholder="tu@email.com" value="<?= $dni ?>" required>
+            <input type="email" id="email" name="email" placeholder="tu@email.com" value="<?= $email ?>" required>
             <div id="email-error">Por favor introduce un email válido</div>
         </div>
 

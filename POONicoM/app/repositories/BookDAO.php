@@ -7,16 +7,16 @@ class BookDAO
     public static function create($book)
     {
         $conn = CoreDB::getConnection();
-        $sql = "INSERT INTO users (name, surname, dni, email, password)
-        VALUES (?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO users (title, available, autor, isbn)
+        VALUES (?, ?, ?, ?)";
         $ps = $conn->prepare($sql);
 
         $title = $book->getTitle();
+        $available = $book->getAvailable();
         $autor = $book->getAutor();
         $isbn = $book->getIsbn();
 
-        $ps->bind_param("sssss", $name, $surname, $dni, $email, $passwordHash);
-
+        $ps->bind_param("ssss", $title, $autor, $available, $isbn);
         try {
             $ps->execute();
         } catch (Exception $e) {

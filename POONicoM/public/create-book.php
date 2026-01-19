@@ -1,5 +1,10 @@
 <?php
 session_start();
+if (!(isset($_COOKIE["stay-connected"]) or isset($_SESSION["origin"]))){
+    $_SESSION["error"]= "Te has intentado colar en el index";
+    header("Location: form-login.php");
+    exit();
+}
 
 $title = $autor = $isbn = "";
 $titleError = $autorError = $isbnError = "";
@@ -28,7 +33,17 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
     }
 
     if(!$errors){
-        
+        require_once $_SERVER['DOCUMENT_ROOT'] . "/POONicoM/app/repositories/BookDAO.php";
+        $b = new Book($title, $available, $autor, $isbn);
+        if(BookDAO::create($b)){
+            $_SESSION['title'] = $title;
+            $_SESSION['available'] = $available;
+            $_SESSION['autor'] = $autor;
+            $_SESSION['id'] = $b->getId();
+            $_SESSION['origin'] = "create-book";
+            header("Location: index.php");
+            exit();
+        }
     }
 }
 

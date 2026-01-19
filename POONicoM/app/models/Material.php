@@ -3,7 +3,7 @@
 abstract class Material
 {
     public function __construct(
-        protected int $id,
+        protected int $id = -1,
         protected string $title,
         protected bool $available = true
     ) {}

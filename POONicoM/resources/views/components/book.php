@@ -21,10 +21,10 @@
         </div>
 
         <div class="form-group">
-            <label for="author">Autor</label>
+            <label for="autor">Autor</label>
             <input type="text"
-                id="author"
-                name="author"
+                id="autor"
+                name="autor"
                 placeholder="Autor"
                 required>
         </div>
