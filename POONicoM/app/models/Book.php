@@ -4,13 +4,13 @@ include_once $_SERVER["DOCUMENT_ROOT"] . "/POONicoM/app/models/Material.php";
 final class Book extends Material
 {
     public function __construct(
-        $id,
         $title,
         $available,
         private string $autor,
-        private string $isbn
+        private string $isbn,
+        private int $id = -1
     ) {
-        parent::__construct($id, $title, $available);
+        parent::__construct($title, $available);
     }
 
 

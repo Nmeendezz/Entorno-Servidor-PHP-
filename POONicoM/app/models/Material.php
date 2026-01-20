@@ -3,11 +3,10 @@
 abstract class Material
 {
     public function __construct(
-        protected int $id = -1,
         protected string $title,
         protected bool $available = true
     ) {}
-
+/*
     public function getId()
     {
         return $this->id;
@@ -19,7 +18,7 @@ abstract class Material
 
         return $this;
     }
-
+*/
     public function getTitle()
     {
         return $this->title;
@@ -48,7 +47,7 @@ abstract class Material
     public abstract function materialType();
 
     public function __tostring(){
-        return "- ID: " . $this->getId() .
+        return /*"- ID: " . $this->getId() .*/
             "<br>- Titulo: " . $this->getTitle() .
             "<br>- Disponible: " . $this->isAvailable();
     }

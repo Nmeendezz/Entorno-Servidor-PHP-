@@ -21,11 +21,52 @@ class UserDAO
 
         try {
             $ps->execute();
-        } catch (Exception $e) {
             $id = $ps->insert_id;
             $user->setId($id);
+        } catch (Exception $e) {
+            $conn->close();
+            return false;
+        }
+        $conn->close();
+        return true;
+    }
+
+    public static function read($email)
+    {
+        $conn = CoreDB::getConnection();
+        $sql = "SELECT * FROM users WHERE email = ?";
+        $ps = $conn->prepare($sql);
+
+        $ps->bind_param("s", $email);
+
+        $ps->execute();
+
+        $res = $ps->get_result();
+
+        if ($row = $res->fetch_assoc()) {
+            $u = new User($row['name'], $row['surname'], $row['dni'], $row['email'], $row['password'], $row['rentals']);
+            $u->setId($row['id']);
+            return $u;
+        }
+        return null;
+    }
+
+    public static function delete($email)
+    {
+        $u = UserDAO::read($email);
+        if($u == null){
+            return null;
         }
 
+        $conn = CoreDB::getConnection();
+
+
+        $sql = "DELETE FROM users WHERE email = ?";
+        $ps = $conn->prepare($sql);
+        $ps->bind_param("s", $email);
+        $ps->execute();
+
         $conn->close();
+        return $u;
     }
 }

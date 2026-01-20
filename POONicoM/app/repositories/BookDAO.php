@@ -7,7 +7,7 @@ class BookDAO
     public static function create($book)
     {
         $conn = CoreDB::getConnection();
-        $sql = "INSERT INTO users (title, available, autor, isbn)
+        $sql = "INSERT INTO books (title, available, autor, isbn)
         VALUES (?, ?, ?, ?)";
         $ps = $conn->prepare($sql);
 
@@ -16,15 +16,17 @@ class BookDAO
         $autor = $book->getAutor();
         $isbn = $book->getIsbn();
 
-        $ps->bind_param("ssss", $title, $autor, $available, $isbn);
+        $ps->bind_param("siss", $title, $available, $autor, $isbn);
         try {
             $ps->execute();
-        } catch (Exception $e) {
             $id = $ps->insert_id;
             $book->setId($id);
+        } catch (Exception $e) {
+            $conn->close();
+            return false;
         }
-
         $conn->close();
+        return true;
     }
 
     public static function read($id)
@@ -42,15 +44,16 @@ class BookDAO
         if ($res->num_rows > 0) {
             $row = $res->fetch_assoc();
             return new Book(
-                $id, 
-                $row["title"], 
-                $row["available"], 
-                $row["autor"], 
-                $row["isbn"]);
+                $row["title"],
+                $row["available"],
+                $row["autor"],
+                $row["isbn"]
+            );
         }
         return null;
     }
-    public static function delete($id){
+    public static function delete($id)
+    {
 
     }
 }

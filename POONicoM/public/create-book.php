@@ -7,7 +7,7 @@ if (!(isset($_COOKIE["stay-connected"]) or isset($_SESSION["origin"]))){
 }
 
 $title = $autor = $isbn = "";
-$titleError = $autorError = $isbnError = "";
+$titleError = $autorError = $isbnError = $availableError = "";
 $available = false;
 $errors = false;
 
@@ -16,6 +16,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
     $isbn = secure($_POST['isbn']);
     $title = secure($_POST['title']);
     $autor = secure($_POST['autor']);
+    $available = $_POST['available'];
 
     if (empty($isbn)) {
         $isbnError = "Es obligatorio introducir el ISBN del libro";
@@ -32,6 +33,18 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
         $errors = true;
     }
 
+    if(empty($available)){
+        $availableError = "Es obligatorio seleccionar una opcion";
+        $errors = true;
+    }
+
+    if($available == "si"){
+        $available = true;
+    } else {
+        $available = false;
+    }
+
+
     if(!$errors){
         require_once $_SERVER['DOCUMENT_ROOT'] . "/POONicoM/app/repositories/BookDAO.php";
         $b = new Book($title, $available, $autor, $isbn);
@@ -39,10 +52,13 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
             $_SESSION['title'] = $title;
             $_SESSION['available'] = $available;
             $_SESSION['autor'] = $autor;
+            $_SESSION['isbn'] = $isbn;
             $_SESSION['id'] = $b->getId();
             $_SESSION['origin'] = "create-book";
             header("Location: index.php");
             exit();
+        } else{
+            echo "no se ha creado";
         }
     }
 }
