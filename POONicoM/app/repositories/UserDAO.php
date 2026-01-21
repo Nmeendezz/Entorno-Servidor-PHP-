@@ -36,25 +36,50 @@ class UserDAO
         $conn = CoreDB::getConnection();
         $sql = "SELECT * FROM users WHERE email = ?";
         $ps = $conn->prepare($sql);
-
         $ps->bind_param("s", $email);
-
         $ps->execute();
-
         $res = $ps->get_result();
+        $conn->close();
 
         if ($row = $res->fetch_assoc()) {
-            $u = new User($row['name'], $row['surname'], $row['dni'], $row['email'], $row['password'], $row['rentals']);
+            $u = new User($row['name'], $row['surname'], $row['dni'], $row['email'], $row['password']);
             $u->setId($row['id']);
             return $u;
         }
+
         return null;
+    }
+
+    public static function checkPassword($email, $pass)
+    {
+        $conn = CoreDB::getConnection();
+        $sql = "SELECT * FROM users WHERE email = ?";
+        $ps = $conn->prepare($sql);
+        $ps->bind_param("s", $email);
+        $ps->execute();
+        $result = $ps->get_result();
+        $conn->close();
+
+        $row = $result->fetch_assoc();
+        $ret = 0;
+        if ($row != null) {
+            $passBD = $row["password"];
+            if (password_verify($pass, $passBD)) {
+                $ret = 1; // User y contraseña correctas
+            } else {
+                $ret = -2; // User existe, pero su contraseña no es correcta
+            }
+        } else {
+            $ret = -1; // El select no ha devuelto ningun resultado
+        }
+
+        return $ret;
     }
 
     public static function delete($email)
     {
         $u = UserDAO::read($email);
-        if($u == null){
+        if ($u == null) {
             return null;
         }
 

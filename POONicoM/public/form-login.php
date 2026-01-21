@@ -1,43 +1,57 @@
 <?php
 session_start();
 
+$emailError = $passError = "";
+$errors = false;
+
 if (isset($_COOKIE["stay-connected"])) {
     $_SESSION["email"] = $_COOKIE["stay-connected"];
     $_SESSION["origin"] = "login";
-
     header("Location: index.php");
     exit();
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    //Ha llegado después de hacer clic en Submit
-    //1. Recojo datos securizando
     include_once $_SERVER["DOCUMENT_ROOT"] . "/POONicoM/utils/Function.php";
 
     $email = secure($_POST['email']);
     $pass = secure($_POST['password']);
 
-
-    //2. Verifico
-    if (strlen($email) < 3) {
+    if (strlen($email) < 3 || !isset($email)) {
         $emailError = "Error";
         $errors = true;
     }
 
-    if (strlen($pass) < 3) {
+    if (strlen($pass) < 2) {
         $passError = "Error";
         $errors = true;
     }
 
     if (!$errors) {
-        if (isset($_POST["stay-connected"])) {
-            setcookie("stay-connected", $email, time() + 60 * 60, "/");
-        }
-        unset($_SESSION["error"]);
+        require_once $_SERVER['DOCUMENT_ROOT'] . "/POONicoM/app/repositories/UserDAO.php";
+        $user = UserDAO::read($email);
+        if ($user == null) {
+            $_SESSION['error'] = "El email o contraseña introducidos no son correctos";
+            echo "user null";
+        } else {
+            $checkedPassword = UserDAO::checkPassword($email, $pass);
+            if ($checkedPassword == 1) {
+                if (isset($_POST["stay-connected"])) {
+                    setcookie("stay-connected", $email, time() + 60 * 60, "/");
+                }
+                unset($_SESSION["error"]);
 
-        $_SESSION["email"] = $email;
-        $_SESSION["origin"] = "login";
-        header("Location: index.php");
+                $_SESSION["email"] = $email;
+                $_SESSION["origin"] = "login";
+                header("Location: index.php");
+                exit();
+            } else if ($checkedPassword == -2) {
+                echo "user existe pero no coinciden las contraseñas";
+            } else {
+                $_SESSION['error'] = "El email o contraseña introducidos no son correctos";
+                echo "el select no devuelve nada";
+            }
+        }
     }
 }
 

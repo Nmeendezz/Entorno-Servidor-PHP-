@@ -8,7 +8,7 @@ class User
         private string $dni,
         private string $email,
         private string $password,
-        private array $rentals = [],
+        //private array $rentals = [],
         private int $id = -1
     ) {
     }
@@ -83,42 +83,51 @@ class User
 
         return $this;
     }
+    /*
+        public function getRentals()
+        {
+            return $this->rentals;
+        }
 
-    public function getRentals()
-    {
-        return $this->rentals;
-    }
+        public function setRentals($rentals)
+        {
+            $this->rentals = $rentals;
 
-    public function setRentals($rentals)
-    {
-        $this->rentals = $rentals;
+            return $this;
+        }
+     public function addRental(Rental $rentalToAdd)
+        {
+            foreach ($this->rentals as $rental) {
+                if ($rental === $rentalToAdd) {
+                    return null;
+                }
+            }
+            $this->rentals[] = $rentalToAdd;
+        }
 
-        return $this;
-    }
-
+        public function findRental(Rental $rentalToFind)
+        {
+            foreach ($this->rentals as $key => $rental) {
+                if ($rental === $rentalToFind) {
+                    return $key;
+                }
+            }
+            return null;
+        }
+        public function deleteRental(Rental $rentalToDelete)
+        {
+            $rentalKey = $this->findRental($rentalToDelete);
+            if ($rentalKey != null) {
+                unset($this->rentals[$rentalKey]);
+                $this->rentals = array_values($this->rentals);
+            }
+        }
+    */
     public function getFullName()
     {
         return $this->getName() . " " . $this->getSurname();
     }
-    public function addRental(Rental $rentalToAdd)
-    {
-        foreach ($this->rentals as $rental) {
-            if ($rental === $rentalToAdd) {
-                return null;
-            }
-        }
-        $this->rentals[] = $rentalToAdd;
-    }
 
-    public function findRental(Rental $rentalToFind)
-    {
-        foreach ($this->rentals as $key => $rental) {
-            if ($rental === $rentalToFind) {
-                return $key;
-            }
-        }
-        return null;
-    }
 
     // Metodo para validar si el correo electronico tiene un formato valido
     public static function validarEmail($email)
@@ -130,14 +139,7 @@ class User
         }
     }
 
-    public function deleteRental(Rental $rentalToDelete)
-    {
-        $rentalKey = $this->findRental($rentalToDelete);
-        if ($rentalKey != null) {
-            unset($this->rentals[$rentalKey]);
-            $this->rentals = array_values($this->rentals);
-        }
-    }
+
 
     public function __tostring()
     {
@@ -147,7 +149,7 @@ class User
             "<br>- Contraseña: " . $this->getPassword() .
             "<br>- Alquileres: <br>";
 
-        $ret .= implode("<br>", $this->getRentals());
+        //$ret .= implode("<br>", $this->getRentals());
 
         return $ret;
     }
