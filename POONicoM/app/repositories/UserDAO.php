@@ -16,6 +16,7 @@ class UserDAO
         $dni = $user->getDni();
         $email = $user->getEmail();
         $pass = $user->getPassword();
+        var_dump($pass);
         $passwordHash = password_hash($pass, PASSWORD_DEFAULT);
         $ps->bind_param("sssss", $name, $surname, $dni, $email, $passwordHash);
 
@@ -64,6 +65,7 @@ class UserDAO
         $ret = 0;
         if ($row != null) {
             $passBD = $row["password"];
+            var_dump(password_verify($pass, $passBD));
             if (password_verify($pass, $passBD)) {
                 $ret = 1; // User y contraseña correctas
             } else {
@@ -84,7 +86,6 @@ class UserDAO
         }
 
         $conn = CoreDB::getConnection();
-
 
         $sql = "DELETE FROM users WHERE email = ?";
         $ps = $conn->prepare($sql);

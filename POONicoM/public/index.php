@@ -1,4 +1,5 @@
 <?php
+session_start();
 if (!(isset($_COOKIE["stay-connected"]) or isset($_SESSION["origin"]))) {
     header("Location: form-login.php");
     exit();
@@ -26,23 +27,42 @@ if (!(isset($_COOKIE["stay-connected"]) or isset($_SESSION["origin"]))) {
         <?php
         require_once $_SERVER['DOCUMENT_ROOT'] . "/POONicoM/app/repositories/UserDAO.php";
 
-        if (isset($_SESSION['origin']) && $_SESSION['origin'] == "login") {
-            require_once $_SERVER["DOCUMENT_ROOT"] . "/ejercicio-users/app/models/User.php";
-            echo "<p>entra en el if</p>";
-            $u = new User(
-                $_SESSION["name"],
-                $_SESSION["surname"],
-                $_SESSION["dni"],
-                $_SESSION["email"],
-                "",
-                [""],
-                $_SESSION["id"]
-            );
-            echo "<p>Te damos la bienvenida, $u</p>";
+        if (isset($_SESSION['origin'])) {
+            if ($_SESSION['origin'] == "login" || $_SESSION['origin'] == "create-book") {
+                require_once $_SERVER["DOCUMENT_ROOT"] . "/POONicoM/app/models/User.php";
+                $u = UserDAO::read($_SESSION['email']);
+
+                echo "<p>Te damos la bienvenida, " . $u->getFullName() . "</p>";
+
+                ?>
+            </main>
+            <main>
+                <?php
+                require_once $_SERVER['DOCUMENT_ROOT'] . "/POONicoM/app/repositories/BookDAO.php";
+                $books = BookDAO::readAll();
+                if ($books == []) {
+                    echo "<p>No se ha creado ningun Libro</p>";
+                } else {
+                    $cont = 1;
+                    echo "<p>";
+                    foreach ($books as $book) {
+                        echo "Libro " . $cont . $book . "<br><br>";
+                        $cont++;
+                    }
+                    echo "</p>";
+
+                }
+            }
         }
-        echo "<p>te has colado en el index</p>";
         ?>
     </main>
+    <main>
+        <?php
+        require_once $_SERVER['DOCUMENT_ROOT'] . "/POONicoM/public/form-delete-book.php";
+
+        ?>
+    </main>
+
     <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/POONicoM/resources/views/layouts/footer.php"; ?>
 
 </body>

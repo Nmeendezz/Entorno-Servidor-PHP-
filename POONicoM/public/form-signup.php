@@ -5,6 +5,21 @@ $name = $surname = $dni = $email = $pass = $connect = "";
 $nameError = $surnameError = $dniError = $emailError = $passError = $errorDb = "";
 $errors = false;
 
+if (isset($_COOKIE["stay-connected"])) {
+    $_SESSION["email"] = $_COOKIE["stay-connected"];
+    $_SESSION["origin"] = "login";
+    header("Location: index.php");
+    exit();
+}
+
+if (isset($_SESSION['origin'])) {
+    if ($_SESSION['origin'] == "login" || $_SESSION['origin'] == "create-book") {
+        header("Location: index.php");
+        exit();
+    }
+}
+
+
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     include $_SERVER['DOCUMENT_ROOT'] . "/POONicoM/utils/Function.php";
     $name = secure($_POST['name']);
@@ -50,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     if (!$errors) {
         require_once $_SERVER['DOCUMENT_ROOT'] . "/POONicoM/app/repositories/UserDAO.php";
-        $u = new User($name, $surname, $dni, $email, "");
+        $u = new User($name, $surname, $dni, $email, $pass);
         if (UserDAO::create($u)) {
             $_SESSION['name'] = $name;
             $_SESSION['surname'] = $surname;
@@ -89,9 +104,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     <!-- HEADER -->
     <?php include $_SERVER['DOCUMENT_ROOT'] . "/POONicoM/resources/views/layouts/header.php" ?>
     <main>
-        <?php if($errorDb){?>
+        <?php if ($errorDb) { ?>
             <script> alert("<?= $errorDb ?>"); </script>
-        <?php
+            <?php
         }
         include $_SERVER['DOCUMENT_ROOT'] . "/POONicoM/resources/views/components/signup.php";
         ?>

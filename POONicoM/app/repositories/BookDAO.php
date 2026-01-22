@@ -29,13 +29,12 @@ class BookDAO
         return true;
     }
 
-    public static function read($id)
+    public static function read($isbn)
     {
         $conn = CoreDB::getConnection();
-        $sql = "SELECT * FROM books WHERE id = ?";
+        $sql = "SELECT * FROM books WHERE isbn = ?";
         $ps = $conn->prepare($sql);
-
-        $ps->bind_param("s", $id);
+        $ps->bind_param("s", $isbn);
         $ps->execute();
 
         $res = $ps->get_result();
@@ -43,17 +42,52 @@ class BookDAO
         $conn->close();
         if ($res->num_rows > 0) {
             $row = $res->fetch_assoc();
-            return new Book(
+            $b =  new Book(
                 $row["title"],
                 $row["available"],
                 $row["autor"],
                 $row["isbn"]
             );
+            $b->setId($row['id']);
+            return $b;
         }
         return null;
     }
-    public static function delete($id)
-    {
 
+    public static function delete($isbn)
+    {
+        $b = BookDAO::read($isbn);
+        if ($b == null) {
+            return null;
+        }
+
+        $conn = CoreDB::getConnection();
+
+        $sql = "DELETE FROM books WHERE isbn = ?";
+        $ps = $conn->prepare($sql);
+        $ps->bind_param("s", $isbn);
+        $ps->execute();
+
+        $conn->close();
+        return $b;
+    }
+
+    public static function readAll(): array
+    {
+        $conn = CoreDB::getConnection();
+        $books = [];
+        $sql = "SELECT * FROM books";
+        $rows = $conn->query($sql);
+        $conn->close();
+        while (($row = $rows->fetch_assoc()) != null) {
+            $books[] = new Book(
+                $row["title"],
+                $row["available"],
+                $row["autor"],
+                $row["isbn"],
+                $row["id"],
+            );
+        }
+        return $books;
     }
 }

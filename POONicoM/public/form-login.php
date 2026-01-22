@@ -11,6 +11,13 @@ if (isset($_COOKIE["stay-connected"])) {
     exit();
 }
 
+if (isset($_SESSION['origin'])) {
+    if ($_SESSION['origin'] == "login" || $_SESSION['origin'] == "create-book") {
+        header("Location: index.php");
+        exit();
+    }
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     include_once $_SERVER["DOCUMENT_ROOT"] . "/POONicoM/utils/Function.php";
 
@@ -32,7 +39,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $user = UserDAO::read($email);
         if ($user == null) {
             $_SESSION['error'] = "El email o contraseña introducidos no son correctos";
-            echo "user null";
         } else {
             $checkedPassword = UserDAO::checkPassword($email, $pass);
             if ($checkedPassword == 1) {
@@ -44,12 +50,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION["email"] = $email;
                 $_SESSION["origin"] = "login";
                 header("Location: index.php");
+
                 exit();
-            } else if ($checkedPassword == -2) {
-                echo "user existe pero no coinciden las contraseñas";
             } else {
                 $_SESSION['error'] = "El email o contraseña introducidos no son correctos";
-                echo "el select no devuelve nada";
             }
         }
     }

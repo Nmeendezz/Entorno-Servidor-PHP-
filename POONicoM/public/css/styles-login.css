@@ -1,17 +1,3 @@
-/* ===== VARIABLES ===== */
-:root {
-    --font-main: "Sanchez", serif;
-    --color-bg: #f6f7f9;
-    --color-white: #ffffff;
-    --color-border: #dcdcdc;
-    --color-primary: #4a5568;
-    --color-primary-soft: #edf2f7;
-    --color-error: #c0392b;
-    --radius: 10px;
-    --transition: 0.25s ease;
-}
-
-
 /* ===== LAYOUT ===== */
 body {
     background-color: var(--color-bg);
