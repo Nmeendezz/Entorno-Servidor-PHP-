@@ -102,6 +102,36 @@ header .logo {
     width: 100%;
 }
 
+/* ===== SELECT ===== */
+.form-container select {
+    width: 100%;
+    height: 42px;
+    padding: 0 12px;
+    border-radius: 6px;
+    border: 1px solid var(--color-border);
+    background-color: var(--color-white);
+    font-size: 14px;
+    color: var(--color-primary);
+    cursor: pointer;
+    transition: var(--transition);
+    appearance: none; /* Quita el estilo por defecto */
+    background-image: url("data:image/svg+xml;utf8,<svg fill='%234a5568' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 16px;
+}
+
+.form-container select:focus-visible {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px var(--color-primary-soft);
+}
+
+.form-container select option {
+    padding: 10px;
+    font-size: 14px;
+}
+
 /* ===== FOOTER ===== */
 footer {
     position: fixed;

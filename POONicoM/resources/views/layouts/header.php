@@ -7,7 +7,6 @@
             <li><a href="/POONicoM/public/index.php">Home</a></li>
             <li><a href="/POONicoM/public/form-login.php">Login</a></li>
             <li><a href="/POONicoM/public/form-signup.php">SignUp</a></li>
-            <li><a href="/POONicoM/public/form-create-book.php">Crear un libro</a></li>
             <li><a href="/POONicoM/public/closesession.php">Cerrar sesion</a></li>
         </ul>
     </nav>

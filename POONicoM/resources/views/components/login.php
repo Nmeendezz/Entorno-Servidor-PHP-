@@ -6,13 +6,13 @@
         <div class="form-group" id="email-group">
             <label for="email">Email</label>
             <input type="email" id="email" name="email" placeholder="tu@email.com">
-            <div id="email-error">Por favor introduce un email válido</div>
+            <?= empty($emailError) ? "" : "<p class='p-error'>$emailError</p>" ?>
         </div>
 
         <div class="form-group">
             <label for="password">Contraseña</label>
             <input type="password" id="password" name="password" placeholder="Tu contraseña">
-            <div class="error-message" id="password-error">Por favor introduce tu contraseña</div>
+            <?= empty($passError) ? "" : "<p class='p-error'>$passError</p>" ?>
         </div>
 
         <div class="checkbox-group">

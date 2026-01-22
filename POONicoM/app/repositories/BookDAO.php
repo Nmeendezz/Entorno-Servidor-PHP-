@@ -42,7 +42,7 @@ class BookDAO
         $conn->close();
         if ($res->num_rows > 0) {
             $row = $res->fetch_assoc();
-            $b =  new Book(
+            $b = new Book(
                 $row["title"],
                 $row["available"],
                 $row["autor"],
@@ -53,7 +53,7 @@ class BookDAO
         }
         return null;
     }
-
+/*
     public static function delete($isbn)
     {
         $b = BookDAO::read($isbn);
@@ -71,7 +71,7 @@ class BookDAO
         $conn->close();
         return true;
     }
-
+*/
     public static function readAll(): array
     {
         $conn = CoreDB::getConnection();
@@ -89,5 +89,21 @@ class BookDAO
             );
         }
         return $books;
+    }
+    public static function delete($isbn)
+    {
+        $conn = CoreDB::getConnection();
+        $sql = "DELETE FROM books where isbn = ?;";
+        $ps = $conn->prepare($sql);
+        $ps->bind_param("s", $isbn);
+
+        try {
+            $ps->execute();
+        } catch (Exception $e) {
+            $conn->close();
+            return false;
+        }
+        $conn->close();
+        return true;
     }
 }
