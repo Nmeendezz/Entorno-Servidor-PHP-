@@ -58,7 +58,7 @@ class BookDAO
     {
         $b = BookDAO::read($isbn);
         if ($b == null) {
-            return null;
+            return false;
         }
 
         $conn = CoreDB::getConnection();
@@ -69,7 +69,7 @@ class BookDAO
         $ps->execute();
 
         $conn->close();
-        return $b;
+        return true;
     }
 
     public static function readAll(): array

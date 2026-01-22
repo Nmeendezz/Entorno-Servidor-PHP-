@@ -1,8 +1,7 @@
 <?php
-
+session_start();
 $isbn = "";
 $isbnError = "";
-$alert = "";
 $errors = false;
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -16,9 +15,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     if (!$errors) {
         require_once $_SERVER['DOCUMENT_ROOT'] . "/POONicoM/app/repositories/BookDAO.php";
-        $b = BookDAO::read($isbn);
         if (BookDAO::delete($isbn)) {
-            
+            $_SESSION['eliminated'] = 'Se ha eliminado el libro con el ISBN "' . $isbn . '" con exito';
             header("Location: index.php");
             exit();
         } else {
@@ -44,7 +42,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 </head>
 
 <body>
-    <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/POONicoM/resources/views/components/deleteBook.php" ?>
+    <?php
+    include $_SERVER['DOCUMENT_ROOT'] . "/POONicoM/resources/views/components/deleteBook.php";
+    ?>
 </body>
 
 </html>

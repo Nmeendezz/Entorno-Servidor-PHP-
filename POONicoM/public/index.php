@@ -50,7 +50,6 @@ if (!(isset($_COOKIE["stay-connected"]) or isset($_SESSION["origin"]))) {
                         $cont++;
                     }
                     echo "</p>";
-
                 }
             }
         }
@@ -59,7 +58,11 @@ if (!(isset($_COOKIE["stay-connected"]) or isset($_SESSION["origin"]))) {
     <main>
         <?php
         require_once $_SERVER['DOCUMENT_ROOT'] . "/POONicoM/public/form-delete-book.php";
-
+        if (isset($_SESSION['eliminated'])) { ?>
+            <script> alert("<?= $_SESSION['eliminated'] ?>"); </script>
+            <?php
+            unset($_SESSION['eliminated']);
+        }
         ?>
     </main>
 
