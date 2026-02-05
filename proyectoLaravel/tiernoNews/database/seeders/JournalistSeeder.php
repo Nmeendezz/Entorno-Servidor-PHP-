@@ -19,7 +19,7 @@ class JournalistSeeder extends Seeder
             "email" => "luz@a.com",
             "password" => ""
         ]);
-        for($i = 0; $i < 5; $i++){
+        for($i = 0; $i < 6; $i++){
             DB::table('journalists')->insert([
                 "name" => "journalist$i",
                 "surname" => "surname$i",

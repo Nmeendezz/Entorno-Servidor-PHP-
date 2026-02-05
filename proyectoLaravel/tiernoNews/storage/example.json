@@ -1,0 +1,18 @@
+{
+    "name": "luis",
+    "surname": "ramirez",
+    "email": "l@l.com",
+    "password": "admin",
+    "job": {
+        "newspaper": "El pais",
+        "department": "International"
+    },
+    "article": {
+        "title": "el adgada",
+        "content": "el otro dia..."
+    },
+    "awards": [
+        "world press photo",
+        "Pulitzer"
+    ]
+}
