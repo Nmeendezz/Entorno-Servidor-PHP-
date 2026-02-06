@@ -41,9 +41,9 @@ class JournalistController extends Controller
 
         //Antes de guardar en la BD: validaciones
         $request->validate([
-            "name" => "required",
-            "password" => "min:4|required",
-            "email" => "unique:journalists,email"
+            "name" => "min:4|required",
+            "password" => "min:4|confirmed|required",
+            "email" => "unique:journalists,email|required"
         ]);
 
         //Con la siguiente orden se guarda en la BD:

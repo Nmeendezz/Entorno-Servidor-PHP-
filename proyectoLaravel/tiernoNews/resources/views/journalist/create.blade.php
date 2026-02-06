@@ -23,8 +23,10 @@
         <div class="row">
             @if ($errors->any())
                 @foreach ($errors->all() as $error)
-                    <div class="alert alert-warning mt-1">
-                        <p>{{$error}}</p>
+                    <div class="alert alert-warning alert-dismissible fade show mt-1" role="alert">
+                        {{$error}}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                        </button>
                     </div>
 
                 @endforeach
@@ -35,7 +37,10 @@
                     <!-- añade un campo hidden con un token imprescindible para que laravel le deje continuar -->
                     <div class="form-group">
                         <label for="name">Nombre</label>
-                        <input name="name" type="text" class="form-control" id="name" placeholder="Enter name">
+                        <input name="name" type="text" id="name" placeholder="Enter name"
+                            class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}">
+                        @error('name') <small class="text-danger">{{ $message }}</small>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label for="surname">Apellidos</label>
@@ -43,21 +48,31 @@
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input name="email" type="email" class="form-control" id="email" placeholder="Enter email">
+                        <input name="email" type="email" id="email" placeholder="Enter email"
+                            class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}">
+                        @error('email') <small class="text-danger">{{ $message }}</small>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label for="pass1">Contraseña</label>
-                        <input name="password" type="password" class="form-control" id="pass1" placeholder="Password">
+                        <input name="password" type="password" id="pass1" placeholder="Password"
+                            class="form-control @error('password') is-invalid @enderror" value="{{ old('password') }}">
+                        @error('password') <small class="text-danger">{{ $message }}</small>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label for="pass2">Repite la contraseña</label>
-                        <input name="password2" type="password" class="form-control" id="pass2" placeholder="Password">
+                        <input name="password_confirmation" type="password" class="form-control" id="pass2" placeholder="Password">
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary mt-2">Submit</button>
                 </form>
             </div>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
 </body>
+
 
 </html>

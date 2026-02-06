@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use Illuminate\Http\Request;
+use Log;
 
 class ArticleController extends Controller
 {
@@ -12,7 +13,9 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        //
+        $articles = Article::all();
+
+        return view('article.index', compact("articles"));
     }
 
     /**
@@ -20,7 +23,7 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        //
+        return view("article.create");
     }
 
     /**
@@ -28,7 +31,22 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $a = new Article($request->all());
+        Log::channel('stderr')->debug("Variable request: ", [$a->title]);
+
+        //Antes de guardar en la BD: validaciones
+        $request->validate([
+            "title" => "min:4|required",
+            "content" => "min:4|required",
+            "readers" => "required"
+        ]);
+
+        //Con la siguiente orden se guarda en la BD:
+        $a->save();
+        //Para crear el index, tengo que buscar todos los periodistas en la BD
+        $articles = Article::all();
+        //return view('journalist.index', compact("journalists"));
+        return redirect()->route("article");
     }
 
     /**
